@@ -13,15 +13,19 @@
     *{box-sizing:border-box}
     html,body{margin:0;padding:0;color:var(--text);font-family:Inter,Segoe UI,Arial,sans-serif;scroll-behavior:smooth}
     body{
-      background:
-        radial-gradient(circle at 20% 10%, #f2f7ff 0, #e5efff 35%, #dce9ff 100%);
+      background-image:
+        linear-gradient(rgba(231,241,255,.82), rgba(223,236,255,.82)),
+        url("https://images.unsplash.com/photo-1677442136019-21780ecad995?auto=format&fit=crop&w=2000&q=80");
+      background-size:cover;
+      background-position:center;
+      background-attachment:fixed;
     }
     .wrap{max-width:1080px;margin:0 auto;padding:98px 24px 24px}
     .hero{background:linear-gradient(135deg,#e7f0ff,#eef5ff 35%,#e9f2ff);border:1px solid #b7caf4;padding:28px;border-radius:20px;box-shadow:0 12px 30px #7b8fb03d}
     .hero h1{margin:0 0 10px;font-size:2rem;line-height:1.2}
     .sub{color:#365078}
     .topbar{position:fixed;top:0;left:0;right:0;z-index:99;background:#eff6ffd8;backdrop-filter:blur(10px);border-bottom:1px solid #b7caf4}
-    .toc{max-width:1420px;margin:0 auto;padding:12px 20px;display:flex;flex-wrap:nowrap;gap:10px;overflow-x:auto;white-space:nowrap}
+    .toc{max-width:1420px;margin:0 auto;padding:12px 20px;display:flex;justify-content:center;flex-wrap:nowrap;gap:10px;overflow-x:auto;white-space:nowrap}
     .toc::-webkit-scrollbar{height:6px}
     .toc::-webkit-scrollbar-thumb{background:#b6c9f4;border-radius:999px}
     .toc a{color:#18345f;text-decoration:none;background:#e9f1ff;border:1px solid #b3c7f3;padding:7px 14px;border-radius:999px;font-size:.92rem;transition:.2s}
@@ -54,6 +58,7 @@
     .cite-link:hover{color:#1b48ac}
     .ref a{color:#1a5fd0;word-break:break-all}
     .ref-list li{margin:8px 0}
+    .ref-citation{color:#143764}
     @media(max-width:1100px){.toc{max-width:100%}}
     @media(max-width:900px){.hero h1{font-size:1.5rem}.tech-grid{grid-template-columns:1fr}}
   </style>
@@ -83,22 +88,22 @@
     const article = document.getElementById("content");
 
     const REF_DB = {
-      "OpenAI, 2024": { id: "ref-openai-2024", url: "https://openai.com/blog/hello-gpt-4o" },
-      "European Commission, 2025": { id: "ref-ec-2025", url: "https://digital-strategy.ec.europa.eu/en/policies/contents-code-gpai" },
-      "European Commission, 2026": { id: "ref-ec-2026", url: "https://digital-strategy.ec.europa.eu/en/policies/contents-code-gpai" },
-      "Miao & Holmes, 2023": { id: "ref-unesco-2023", url: "https://www.unesco.org/en/articles/guidance-generative-ai-education-and-research" },
-      "Miao & Holmes, 2026": { id: "ref-unesco-2026", url: "https://www.unesco.org/en/articles/guidance-generative-ai-education-and-research" },
-      "Koenecke et al., 2020": { id: "ref-koenecke-2020", url: "https://doi.org/10.1073/pnas.1915768117" },
-      "Koenecke et al. (2020)": { id: "ref-koenecke-2020", url: "https://doi.org/10.1073/pnas.1915768117" },
-      "Ouyang et al., 2022": { id: "ref-ouyang-2022", url: "https://arxiv.org/abs/2203.02155" },
-      "Lewis et al., 2020": { id: "ref-lewis-2020", url: "https://arxiv.org/abs/2005.11401" },
-      "Ji et al., 2023": { id: "ref-ji-2023", url: "https://doi.org/10.1145/3571730" },
-      "EU, 2016": { id: "ref-eu-2016", url: "https://eur-lex.europa.eu/eli/reg/2016/679/oj" },
-      "Nissenbaum, 2010": { id: "ref-nissenbaum-2010", url: "https://www.sup.org/books/title/?id=8862" },
-      "Selbst et al., 2019": { id: "ref-selbst-2019", url: "https://doi.org/10.1145/3287560.3287598" },
-      "UNESCO, 2023": { id: "ref-unesco-teachers-2023", url: "https://www.unesco.org/en/articles/global-report-teachers-addressing-teacher-shortages-and-transforming-profession" },
-      "World Bank, 2024": { id: "ref-worldbank-2024", url: "https://www.worldbank.org/en/topic/education/brief/learning-poverty" },
-      "ITU, 2023": { id: "ref-itu-2023", url: "https://www.itu.int/itu-d/reports/statistics/facts-figures-2023/" }
+      "OpenAI, 2024": { id: "ref-openai-2024", url: "https://openai.com/blog/hello-gpt-4o", text: "OpenAI. 2024. Hello GPT-4o. Available at: https://openai.com/blog/hello-gpt-4o." },
+      "European Commission, 2025": { id: "ref-ec-2025", url: "https://digital-strategy.ec.europa.eu/en/policies/contents-code-gpai", text: "European Commission. 2025. The General-Purpose AI Code of Practice. Available at: https://digital-strategy.ec.europa.eu/en/policies/contents-code-gpai." },
+      "European Commission, 2026": { id: "ref-ec-2026", url: "https://digital-strategy.ec.europa.eu/en/policies/contents-code-gpai", text: "European Commission. 2026. The General-Purpose AI Code of Practice (updated 1 April 2026). Available at: https://digital-strategy.ec.europa.eu/en/policies/contents-code-gpai." },
+      "Miao & Holmes, 2023": { id: "ref-unesco-2023", url: "https://www.unesco.org/en/articles/guidance-generative-ai-education-and-research", text: "Miao, F. and Holmes, W. 2023. Guidance for Generative AI in Education and Research. UNESCO. Available at: https://www.unesco.org/en/articles/guidance-generative-ai-education-and-research." },
+      "Miao & Holmes, 2026": { id: "ref-unesco-2026", url: "https://www.unesco.org/en/articles/guidance-generative-ai-education-and-research", text: "Miao, F. and Holmes, W. 2026. Guidance for Generative AI in Education and Research (updated 16 January 2026). UNESCO. Available at: https://www.unesco.org/en/articles/guidance-generative-ai-education-and-research." },
+      "Koenecke et al., 2020": { id: "ref-koenecke-2020", url: "https://doi.org/10.1073/pnas.1915768117", text: "Koenecke, A.; Nam, A.; Lake, E.; Nudell, J.; Quartey, M.; Mengesha, Z.; Toups, C.; Rickford, J. R.; Jurafsky, D.; and Goel, S. 2020. Racial disparities in automated speech recognition. Proceedings of the National Academy of Sciences, 117(14):7684-7689. doi:10.1073/pnas.1915768117." },
+      "Koenecke et al. (2020)": { id: "ref-koenecke-2020", url: "https://doi.org/10.1073/pnas.1915768117", text: "Koenecke, A.; Nam, A.; Lake, E.; Nudell, J.; Quartey, M.; Mengesha, Z.; Toups, C.; Rickford, J. R.; Jurafsky, D.; and Goel, S. 2020. Racial disparities in automated speech recognition. Proceedings of the National Academy of Sciences, 117(14):7684-7689. doi:10.1073/pnas.1915768117." },
+      "Ouyang et al., 2022": { id: "ref-ouyang-2022", url: "https://arxiv.org/abs/2203.02155", text: "Ouyang, L.; Wu, J.; Jiang, X.; et al. 2022. Training language models to follow instructions with human feedback. Advances in Neural Information Processing Systems, 35:27730-27744. Available at: https://arxiv.org/abs/2203.02155." },
+      "Lewis et al., 2020": { id: "ref-lewis-2020", url: "https://arxiv.org/abs/2005.11401", text: "Lewis, P.; Perez, E.; Piktus, A.; et al. 2020. Retrieval-augmented generation for knowledge-intensive NLP tasks. Advances in Neural Information Processing Systems, 33:9459-9474. Available at: https://arxiv.org/abs/2005.11401." },
+      "Ji et al., 2023": { id: "ref-ji-2023", url: "https://doi.org/10.1145/3571730", text: "Ji, Z.; Lee, N.; Frieske, R.; et al. 2023. Survey of hallucination in natural language generation. ACM Computing Surveys, 55(12):1-38. doi:10.1145/3571730." },
+      "EU, 2016": { id: "ref-eu-2016", url: "https://eur-lex.europa.eu/eli/reg/2016/679/oj", text: "European Union. 2016. Regulation (EU) 2016/679 (General Data Protection Regulation). Available at: https://eur-lex.europa.eu/eli/reg/2016/679/oj." },
+      "Nissenbaum, 2010": { id: "ref-nissenbaum-2010", url: "https://www.sup.org/books/title/?id=8862", text: "Nissenbaum, H. 2010. Privacy in Context: Technology, Policy, and the Integrity of Social Life. Stanford University Press. Available at: https://www.sup.org/books/title/?id=8862." },
+      "Selbst et al., 2019": { id: "ref-selbst-2019", url: "https://doi.org/10.1145/3287560.3287598", text: "Selbst, A. D.; Boyd, D.; Friedler, S. A.; Venkatasubramanian, S.; and Vertesi, J. 2019. Fairness and abstraction in sociotechnical systems. FAT* 2019, 59-68. doi:10.1145/3287560.3287598." },
+      "UNESCO, 2023": { id: "ref-unesco-teachers-2023", url: "https://www.unesco.org/en/articles/global-report-teachers-addressing-teacher-shortages-and-transforming-profession", text: "UNESCO. 2023. Global Report on Teachers: Addressing Teacher Shortages and Transforming the Profession. Available at: https://www.unesco.org/en/articles/global-report-teachers-addressing-teacher-shortages-and-transforming-profession." },
+      "World Bank, 2024": { id: "ref-worldbank-2024", url: "https://www.worldbank.org/en/topic/education/brief/learning-poverty", text: "World Bank. 2024. Learning Poverty. Available at: https://www.worldbank.org/en/topic/education/brief/learning-poverty." },
+      "ITU, 2023": { id: "ref-itu-2023", url: "https://www.itu.int/itu-d/reports/statistics/facts-figures-2023/", text: "International Telecommunication Union. 2023. Facts and Figures 2023. Available at: https://www.itu.int/itu-d/reports/statistics/facts-figures-2023/." }
     };
 
     function inlineFormat(text){
@@ -248,17 +253,17 @@
     }
 
     // Append references section with anchor targets for in-text citation jumps.
-    const refs = Object.entries(REF_DB);
+    const refs = Object.values(REF_DB).filter((v, i, arr) => arr.findIndex(x => x.id === v.id) === i);
     if (!article.querySelector("#references")){
       const refsCard = document.createElement("section");
       refsCard.className = "section-card";
       refsCard.innerHTML = `<h2 id="references">References</h2><ul class="ref-list"></ul>`;
       const ul = refsCard.querySelector(".ref-list");
-      for (const [name, info] of refs){
+      for (const info of refs){
         const li = document.createElement("li");
         li.id = info.id;
         li.className = "ref";
-        li.innerHTML = `<strong>${name}</strong> — <a href="${info.url}" target="_blank" rel="noopener noreferrer">${info.url}</a>`;
+        li.innerHTML = `<span class="ref-citation">${info.text}</span> <a href="${info.url}" target="_blank" rel="noopener noreferrer">[link]</a>`;
         ul.appendChild(li);
       }
       article.appendChild(refsCard);
@@ -268,8 +273,9 @@
     c1.setOption({
       backgroundColor:"transparent",
       tooltip:{},
-      xAxis:{type:"category",data:["Teacher Gap (M)","Learning Poverty (%)","Offline Pop (B)"],axisLabel:{color:"#cfe0ff"}},
-      yAxis:{type:"value",axisLabel:{color:"#cfe0ff"},splitLine:{lineStyle:{color:"#2f4377"}}},
+      textStyle:{color:"#1f3e74"},
+      xAxis:{type:"category",data:["Teacher Gap (M)","Learning Poverty (%)","Offline Pop (B)"],axisLabel:{color:"#1f3e74",fontWeight:600},axisLine:{lineStyle:{color:"#5e7eb0"}}},
+      yAxis:{type:"value",axisLabel:{color:"#1f3e74",fontWeight:600},axisLine:{lineStyle:{color:"#5e7eb0"}},splitLine:{lineStyle:{color:"#b8c9e6"}}},
       series:[{type:"bar",data:[44,70,2.6],itemStyle:{color:new echarts.graphic.LinearGradient(0,0,0,1,[{offset:0,color:"#7c9cff"},{offset:1,color:"#40e0d0"}])}}],
       grid:{left:45,right:16,top:30,bottom:35}
     });
@@ -277,8 +283,9 @@
     const c2 = echarts.init(document.getElementById("chart2"));
     c2.setOption({
       tooltip:{trigger:"axis"},
-      xAxis:{type:"category",data:["Black Speakers","White Speakers"],axisLabel:{color:"#cfe0ff"}},
-      yAxis:{type:"value",max:0.4,axisLabel:{color:"#cfe0ff"},splitLine:{lineStyle:{color:"#2f4377"}}},
+      textStyle:{color:"#1f3e74"},
+      xAxis:{type:"category",data:["Black Speakers","White Speakers"],axisLabel:{color:"#1f3e74",fontWeight:600},axisLine:{lineStyle:{color:"#5e7eb0"}}},
+      yAxis:{type:"value",max:0.4,axisLabel:{color:"#1f3e74",fontWeight:600},axisLine:{lineStyle:{color:"#5e7eb0"}},splitLine:{lineStyle:{color:"#b8c9e6"}}},
       series:[{name:"WER",type:"bar",data:[0.35,0.19],itemStyle:{color:"#ff8b8b"}}],
       grid:{left:45,right:16,top:30,bottom:35}
     });
@@ -294,8 +301,9 @@
           { name: "Wellbeing", max: 100 },
           { name: "Access Equity", max: 100 }
         ],
-        axisName:{color:"#d9e5ff"}
+        axisName:{color:"#1f3e74",fontWeight:700}
       },
+      textStyle:{color:"#1f3e74"},
       series: [{
         type: "radar",
         data: [{ value: [85, 80, 76, 83, 72, 78], name: "Risk Attention Need", areaStyle: { color: "rgba(124,156,255,0.35)" }, lineStyle: {color:"#7c9cff"} }]
