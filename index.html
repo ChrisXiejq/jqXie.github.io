@@ -7,21 +7,17 @@
   <script src="https://cdn.jsdelivr.net/npm/echarts@5/dist/echarts.min.js"></script>
   <style>
     :root {
-      --bg:#dfe8ff; --panel:#f5f9ffcc; --text:#0f1f3a; --muted:#3f567f;
-      --accent:#456dff; --accent2:#13b8ad; --card:#ffffffcf;
+      --bg:#eaf2ff; --panel:#f7fbffef; --text:#0f2b57; --muted:#4d6996;
+      --accent:#3d6eff; --accent2:#3fa9ff; --card:#ffffffee;
     }
     *{box-sizing:border-box}
     html,body{margin:0;padding:0;color:var(--text);font-family:Inter,Segoe UI,Arial,sans-serif;scroll-behavior:smooth}
     body{
-      background-image:
-        linear-gradient(rgba(240,247,255,.72), rgba(229,241,255,.72)),
-        url("https://images.unsplash.com/photo-1516321497487-e288fb19713f?auto=format&fit=crop&w=1800&q=80");
-      background-size:cover;
-      background-position:center;
-      background-attachment:fixed;
+      background:
+        radial-gradient(circle at 20% 10%, #f2f7ff 0, #e5efff 35%, #dce9ff 100%);
     }
     .wrap{max-width:1080px;margin:0 auto;padding:98px 24px 24px}
-    .hero{background:linear-gradient(135deg,#dce8ff,#e9f4ff 35%,#dff7f4);border:1px solid #b7caf4;padding:28px;border-radius:20px;box-shadow:0 12px 30px #7b8fb03d}
+    .hero{background:linear-gradient(135deg,#e7f0ff,#eef5ff 35%,#e9f2ff);border:1px solid #b7caf4;padding:28px;border-radius:20px;box-shadow:0 12px 30px #7b8fb03d}
     .hero h1{margin:0 0 10px;font-size:2rem;line-height:1.2}
     .sub{color:#365078}
     .topbar{position:fixed;top:0;left:0;right:0;z-index:99;background:#eff6ffd8;backdrop-filter:blur(10px);border-bottom:1px solid #b7caf4}
@@ -34,8 +30,8 @@
     .card{background:var(--card);border:1px solid #b9cdf7;border-radius:16px;padding:12px;min-height:260px}
     .chart{height:240px}
     article{background:var(--panel);border:1px solid #b9cdf7;border-radius:20px;padding:26px;line-height:1.8;box-shadow:0 16px 30px #7b8fb026}
-    article h2{margin-top:2.2rem;font-size:1.55rem;color:#1f3f72;padding-top:8px;border-top:1px dashed #8fb0ea}
-    article h3{margin-top:1.5rem;color:#29508a}
+    article h2{margin:0 0 1rem;font-size:1.65rem;color:#214a86;padding:0;border:0}
+    article h3{margin-top:1.5rem;color:#2d5d9f}
     article h4{margin-top:1rem;color:#3e649c}
     article p{margin:.55rem 0;color:#12284a}
     article ul{margin:.4rem 0 .8rem 1.2rem}
@@ -44,25 +40,19 @@
     code{background:#e6eeff;padding:2px 6px;border-radius:6px}
     .svg-box{width:100%;height:240px;background:#f5f9ff;border-radius:12px;border:1px solid #b9cdf7;padding:10px}
     .tech-grid{display:grid;grid-template-columns:1fr 1fr;gap:14px}
-    .tech-showcase{display:grid;grid-template-columns:1fr 1fr;gap:14px;margin:10px 0 20px}
-    .module-card{
-      background:linear-gradient(160deg,#ffffffde,#eef5ffde 60%,#e7fff9de);
-      border:1px solid #b8cdf7;border-radius:14px;padding:14px;position:relative;overflow:hidden;
-      transition:transform .22s ease, box-shadow .22s ease, border-color .22s ease;
-      box-shadow:0 8px 20px #7f94ba2c;
+    .section-card{
+      background:linear-gradient(180deg,#ffffffec,#f4f9ffec);
+      border:1px solid #b8cdf7;
+      border-radius:18px;
+      padding:20px 22px;
+      margin:0 0 20px;
+      box-shadow:0 10px 24px #7b8fb024;
     }
-    .module-card::after{
-      content:"";
-      position:absolute;inset:-30% auto auto -30%;
-      width:160px;height:160px;border-radius:50%;
-      background:radial-gradient(circle,#9ddcff66 0,#9ddcff00 70%);
-      pointer-events:none;
-    }
-    .module-card:hover{transform:translateY(-4px) scale(1.01);box-shadow:0 14px 28px #7890be4a;border-color:#7ea7f4}
-    .module-card h3{margin-top:0 !important}
+    .section-card:hover{border-color:#8bb0ff;box-shadow:0 14px 28px #5f7ec633}
+    .section-card > h2{padding-bottom:8px;border-bottom:1px solid #d4e2ff}
     .ref a{color:#1a5fd0;word-break:break-all}
     @media(max-width:1100px){.toc{max-width:100%}}
-    @media(max-width:900px){.hero h1{font-size:1.5rem}.tech-grid,.tech-showcase{grid-template-columns:1fr}}
+    @media(max-width:900px){.hero h1{font-size:1.5rem}.tech-grid{grid-template-columns:1fr}}
   </style>
 </head>
 <body>
@@ -73,9 +63,7 @@
       <a href="#part1">Part 1: Domain & Challenges</a>
       <a href="#part2">Part 2: AI/ML Technologies</a>
       <a href="#part3">Part 3: Ethical Implications</a>
-      <a href="#synthesis">Synthesis</a>
-      <a href="#conclusion">Conclusion</a>
-      <a href="#references">References</a>
+      <a href="#conclusion">Framework & Conclusion</a>
     </nav>
   </div>
   <div class="wrap">
@@ -110,9 +98,8 @@
       "Application Domain, Current Challenges, and the Case for AI/ML Adoption":"part1",
       "How Different AI/ML Technologies Address Domain Challenges":"part2",
       "Wider Ethical Implications of AI/ML in Language Education":"part3",
-      "Synthesis: A Conditional Adoption Framework":"synthesis",
-      "Conclusion":"conclusion",
-      "References":"references"
+      "Conclusion: A Conditional Adoption Framework":"conclusion",
+      "Conclusion":"conclusion"
     };
 
     let html = "";
@@ -208,34 +195,18 @@
       </div>
     `);
 
-    const part2 = article.querySelector("#part2");
-    if (part2){
-      const showcase = document.createElement("section");
-      showcase.className = "tech-showcase";
-      const pipelineCard = article.querySelector("#part2 + .inset-card");
-      if (pipelineCard){
-        pipelineCard.insertAdjacentElement("afterend", showcase);
-      } else {
-        part2.insertAdjacentElement("afterend", showcase);
-      }
-
-      let ptr = part2.nextElementSibling;
-      while (ptr && ptr.tagName !== "H2"){
-        if (ptr.tagName === "H3"){
-          const card = document.createElement("section");
-          card.className = "module-card";
-          card.appendChild(ptr);
-          let nxt = card.nextElementSibling;
-          while (nxt && !["H2","H3"].includes(nxt.tagName)){
-            const move = nxt;
-            nxt = nxt.nextElementSibling;
-            card.appendChild(move);
-          }
-          showcase.appendChild(card);
-          ptr = nxt;
-        } else {
-          ptr = ptr.nextElementSibling;
-        }
+    // Wrap each level-1 section (h2 + following siblings) into section cards.
+    const h2s = Array.from(article.querySelectorAll("h2"));
+    for (const h2 of h2s){
+      const card = document.createElement("section");
+      card.className = "section-card";
+      h2.before(card);
+      card.appendChild(h2);
+      let nxt = card.nextElementSibling;
+      while (nxt && nxt.tagName !== "H2"){
+        const move = nxt;
+        nxt = nxt.nextElementSibling;
+        card.appendChild(move);
       }
     }
 
