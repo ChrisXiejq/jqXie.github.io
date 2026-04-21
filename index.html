@@ -12,13 +12,14 @@
     }
     *{box-sizing:border-box}
     html,body{margin:0;padding:0;background:radial-gradient(circle at 20% 10%,#172751 0,#0b1020 40%,#090d1a 100%);color:var(--text);font-family:Inter,Segoe UI,Arial,sans-serif;scroll-behavior:smooth}
-    .wrap{max-width:1080px;margin:0 auto;padding:24px}
+    .wrap{max-width:1080px;margin:0 auto;padding:98px 24px 24px}
     .hero{background:linear-gradient(135deg,#1b2f68,#1a3a6d 35%,#18536a);border:1px solid #3f5bb2;padding:28px;border-radius:20px;box-shadow:0 20px 40px #00000055}
     .hero h1{margin:0 0 10px;font-size:2rem;line-height:1.2}
     .sub{color:#d6e2ff}
-    .toc{position:sticky;top:10px;margin:18px 0;background:var(--panel);backdrop-filter:blur(8px);border:1px solid #2f4377;border-radius:16px;padding:14px;display:flex;flex-wrap:wrap;gap:10px;z-index:10}
+    .topbar{position:fixed;top:0;left:0;right:0;z-index:99;background:#0d1630dd;backdrop-filter:blur(10px);border-bottom:1px solid #2f4377}
+    .toc{max-width:1080px;margin:0 auto;padding:12px 18px;display:flex;flex-wrap:wrap;gap:10px}
     .toc a{color:#d9e5ff;text-decoration:none;background:#233969;border:1px solid #3b5ca5;padding:6px 10px;border-radius:999px;font-size:.9rem}
-    .grid{display:grid;grid-template-columns:1fr 1fr;gap:14px;margin:18px 0}
+    .inset-card{background:var(--card);border:1px solid #2f4377;border-radius:14px;padding:12px;margin:14px 0 18px;box-shadow:0 8px 16px #00000022}
     .card{background:var(--card);border:1px solid #2f4377;border-radius:14px;padding:12px;min-height:260px}
     .chart{height:240px}
     article{background:var(--panel);border:1px solid #2f4377;border-radius:20px;padding:26px;line-height:1.8;box-shadow:0 16px 30px #00000035}
@@ -31,17 +32,17 @@
     article blockquote{margin:1rem 0;padding:.7rem 1rem;border-left:4px solid var(--accent2);background:#10305766;border-radius:8px}
     code{background:#102248;padding:2px 6px;border-radius:6px}
     .svg-box{width:100%;height:240px;background:#0f1d3f;border-radius:12px;border:1px solid #33539b;padding:10px}
+    .tech-grid{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+    .module-card{background:linear-gradient(180deg,#152752,#101d3f);border:1px solid #3b5ca5;border-radius:12px;padding:12px;transition:transform .2s ease, box-shadow .2s ease, border-color .2s ease}
+    .module-card:hover{transform:translateY(-3px);box-shadow:0 10px 24px #00000055;border-color:#6ea8ff}
+    .module-card h3{margin-top:0 !important}
+    .float-tip{position:sticky;top:92px;padding:10px 12px;background:#173468b3;border:1px solid #4e74c4;border-radius:10px;color:#d9e7ff;font-size:.92rem}
     .ref a{color:#80f0ff;word-break:break-all}
-    @media(max-width:900px){.grid{grid-template-columns:1fr} .hero h1{font-size:1.5rem}}
+    @media(max-width:900px){.hero h1{font-size:1.5rem}.tech-grid{grid-template-columns:1fr}}
   </style>
 </head>
 <body>
-  <div class="wrap">
-    <section class="hero">
-      <h1>A Machine-Learning-Centered Evaluation of Conversational AI for Oral English Learning</h1>
-      <div class="sub">Student Number: 25027138 · GitHub Pages Ready Single-File Blog</div>
-    </section>
-
+  <div class="topbar">
     <nav class="toc">
       <a href="#abstract">Abstract</a>
       <a href="#introduction">Introduction</a>
@@ -52,49 +53,11 @@
       <a href="#conclusion">Conclusion</a>
       <a href="#references">References</a>
     </nav>
-
-    <section class="grid">
-      <div class="card">
-        <h3 style="margin:0 0 6px;">Education Constraint Metrics</h3>
-        <div id="chart1" class="chart"></div>
-      </div>
-      <div class="card">
-        <h3 style="margin:0 0 6px;">ASR Fairness Gap (WER)</h3>
-        <div id="chart2" class="chart"></div>
-      </div>
-      <div class="card">
-        <h3 style="margin:0 0 6px;">AI in Oral Learning Pipeline</h3>
-        <div class="svg-box">
-          <svg viewBox="0 0 900 240" width="100%" height="100%">
-            <defs>
-              <linearGradient id="g1" x1="0" x2="1">
-                <stop offset="0%" stop-color="#6ea8ff"/><stop offset="100%" stop-color="#43e7d7"/>
-              </linearGradient>
-            </defs>
-            <rect x="20" y="80" width="130" height="70" rx="12" fill="#1d3a74" stroke="#7bb5ff"/>
-            <text x="85" y="120" fill="#fff" text-anchor="middle" font-size="16">Speech Input</text>
-            <rect x="190" y="80" width="130" height="70" rx="12" fill="#1d3a74" stroke="#7bb5ff"/>
-            <text x="255" y="110" fill="#fff" text-anchor="middle" font-size="16">ASR</text>
-            <text x="255" y="130" fill="#fff" text-anchor="middle" font-size="12">+ confidence</text>
-            <rect x="360" y="80" width="170" height="70" rx="12" fill="#1d3a74" stroke="#7bb5ff"/>
-            <text x="445" y="110" fill="#fff" text-anchor="middle" font-size="16">Pronunciation</text>
-            <text x="445" y="130" fill="#fff" text-anchor="middle" font-size="12">Prosody scoring</text>
-            <rect x="570" y="80" width="130" height="70" rx="12" fill="#1d3a74" stroke="#7bb5ff"/>
-            <text x="635" y="120" fill="#fff" text-anchor="middle" font-size="16">LLM Tutor</text>
-            <rect x="740" y="80" width="140" height="70" rx="12" fill="#1d3a74" stroke="#7bb5ff"/>
-            <text x="810" y="110" fill="#fff" text-anchor="middle" font-size="16">Agent Orchestration</text>
-            <text x="810" y="130" fill="#fff" text-anchor="middle" font-size="12">Policy + memory</text>
-            <line x1="150" y1="115" x2="190" y2="115" stroke="url(#g1)" stroke-width="4"/>
-            <line x1="320" y1="115" x2="360" y2="115" stroke="url(#g1)" stroke-width="4"/>
-            <line x1="530" y1="115" x2="570" y2="115" stroke="url(#g1)" stroke-width="4"/>
-            <line x1="700" y1="115" x2="740" y2="115" stroke="url(#g1)" stroke-width="4"/>
-          </svg>
-        </div>
-      </div>
-      <div class="card">
-        <h3 style="margin:0 0 6px;">Risk Priority Radar</h3>
-        <div id="chart3" class="chart"></div>
-      </div>
+  </div>
+  <div class="wrap">
+    <section class="hero">
+      <h1>A Machine-Learning-Centered Evaluation of Conversational AI for Oral English Learning</h1>
+      <div class="sub">Student Number: 25027138 · GitHub Pages Ready Single-File Blog</div>
     </section>
 
     <article id="content"></article>
@@ -130,13 +93,20 @@
 
     let html = "";
     let inList = false;
+    let paraBuffer = [];
     const lines = md.split(/\r?\n/);
+    const flushParagraph = () => {
+      if (!paraBuffer.length) return;
+      html += `<p>${inlineFormat(paraBuffer.join(" "))}</p>`;
+      paraBuffer = [];
+    };
     for (const rawLine of lines){
       const line = rawLine.trim();
-      if (line === "---"){ if(inList){html += "</ul>"; inList=false;} continue; }
-      if (!line){ if(inList){html += "</ul>"; inList=false;} continue; }
-      if (line.startsWith("# ")){ if(inList){html += "</ul>"; inList=false;} continue; }
+      if (line === "---"){ flushParagraph(); if(inList){html += "</ul>"; inList=false;} continue; }
+      if (!line){ flushParagraph(); if(inList){html += "</ul>"; inList=false;} continue; }
+      if (line.startsWith("# ")){ flushParagraph(); if(inList){html += "</ul>"; inList=false;} continue; }
       if (line.startsWith("## ")) {
+        flushParagraph();
         if(inList){html += "</ul>"; inList=false;}
         const title = line.slice(3).trim();
         const id = sectionIdMap[title] || slugify(title);
@@ -144,31 +114,97 @@
         continue;
       }
       if (line.startsWith("### ")) {
+        flushParagraph();
         if(inList){html += "</ul>"; inList=false;}
         html += `<h3>${inlineFormat(line.slice(4).trim())}</h3>`;
         continue;
       }
       if (line.startsWith("#### ")) {
+        flushParagraph();
         if(inList){html += "</ul>"; inList=false;}
         html += `<h4>${inlineFormat(line.slice(5).trim())}</h4>`;
         continue;
       }
       if (line.startsWith("- ")) {
+        flushParagraph();
         if(!inList){html += "<ul>"; inList=true;}
         const item = line.slice(2).trim();
-        const cls = (document.location.hash === "#references" || item.includes("http")) ? " class='ref'" : "";
+        const cls = (item.includes("http")) ? " class='ref'" : "";
         html += `<li${cls}>${inlineFormat(item)}</li>`;
         continue;
       }
       if (line.startsWith("> ")) {
+        flushParagraph();
         if(inList){html += "</ul>"; inList=false;}
         html += `<blockquote>${inlineFormat(line.slice(2).trim())}</blockquote>`;
         continue;
       }
-      html += `<p>${inlineFormat(line)}</p>`;
+      paraBuffer.push(line);
     }
+    flushParagraph();
     if(inList) html += "</ul>";
     article.innerHTML = html;
+
+    const insertAfter = (selector, htmlBlock) => {
+      const node = article.querySelector(selector);
+      if (!node) return;
+      node.insertAdjacentHTML("afterend", htmlBlock);
+    };
+
+    insertAfter("#part1", `
+      <div class="inset-card">
+        <h3 style="margin:0 0 6px;">Education Constraint Metrics</h3>
+        <div id="chart1" class="chart"></div>
+      </div>
+    `);
+    insertAfter("#part2", `
+      <div class="inset-card">
+        <h3 style="margin:0 0 6px;">AI in Oral Learning Pipeline</h3>
+        <div class="svg-box">
+          <svg viewBox="0 0 900 240" width="100%" height="100%">
+            <defs><linearGradient id="g1" x1="0" x2="1"><stop offset="0%" stop-color="#6ea8ff"/><stop offset="100%" stop-color="#43e7d7"/></linearGradient></defs>
+            <rect x="20" y="80" width="130" height="70" rx="12" fill="#1d3a74" stroke="#7bb5ff"/><text x="85" y="120" fill="#fff" text-anchor="middle" font-size="16">Speech Input</text>
+            <rect x="190" y="80" width="130" height="70" rx="12" fill="#1d3a74" stroke="#7bb5ff"/><text x="255" y="110" fill="#fff" text-anchor="middle" font-size="16">ASR</text><text x="255" y="130" fill="#fff" text-anchor="middle" font-size="12">+ confidence</text>
+            <rect x="360" y="80" width="170" height="70" rx="12" fill="#1d3a74" stroke="#7bb5ff"/><text x="445" y="110" fill="#fff" text-anchor="middle" font-size="16">Pronunciation</text><text x="445" y="130" fill="#fff" text-anchor="middle" font-size="12">Prosody scoring</text>
+            <rect x="570" y="80" width="130" height="70" rx="12" fill="#1d3a74" stroke="#7bb5ff"/><text x="635" y="120" fill="#fff" text-anchor="middle" font-size="16">LLM Tutor</text>
+            <rect x="740" y="80" width="140" height="70" rx="12" fill="#1d3a74" stroke="#7bb5ff"/><text x="810" y="110" fill="#fff" text-anchor="middle" font-size="16">Agent Orchestration</text><text x="810" y="130" fill="#fff" text-anchor="middle" font-size="12">Policy + memory</text>
+            <line x1="150" y1="115" x2="190" y2="115" stroke="url(#g1)" stroke-width="4"/><line x1="320" y1="115" x2="360" y2="115" stroke="url(#g1)" stroke-width="4"/><line x1="530" y1="115" x2="570" y2="115" stroke="url(#g1)" stroke-width="4"/><line x1="700" y1="115" x2="740" y2="115" stroke="url(#g1)" stroke-width="4"/>
+          </svg>
+        </div>
+        <div class="float-tip" style="margin-top:8px;">Hover the technology cards below to focus each module quickly.</div>
+      </div>
+    `);
+    insertAfter("#part3", `
+      <div class="inset-card">
+        <h3 style="margin:0 0 6px;">ASR Fairness Gap and Ethics Risk Radar</h3>
+        <div class="tech-grid">
+          <div id="chart2" class="chart"></div>
+          <div id="chart3" class="chart"></div>
+        </div>
+      </div>
+    `);
+
+    const part2 = article.querySelector("#part2");
+    if (part2){
+      let ptr = part2.nextElementSibling;
+      while (ptr && ptr.tagName !== "H2"){
+        if (ptr.tagName === "H3"){
+          const card = document.createElement("section");
+          card.className = "module-card";
+          ptr.before(card);
+          card.appendChild(ptr);
+          let nxt = card.nextElementSibling;
+          while (nxt && !["H2","H3"].includes(nxt.tagName)){
+            const move = nxt;
+            nxt = nxt.nextElementSibling;
+            card.appendChild(move);
+          }
+          ptr = nxt;
+        } else {
+          ptr = ptr.nextElementSibling;
+        }
+      }
+    }
 
     const c1 = echarts.init(document.getElementById("chart1"));
     c1.setOption({
