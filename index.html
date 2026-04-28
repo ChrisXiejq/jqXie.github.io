@@ -8,12 +8,12 @@
     :root{--bg:#e9f2ff;--panel:#f8fbffeb;--card:#ffffffee;--text:#0f2a56;--line:#b8cdf6;--accent:#3f72ff;--accent2:#31c8ff;}
     *{box-sizing:border-box} html,body{margin:0;padding:0;scroll-behavior:smooth}
     body{font-family:Inter,Segoe UI,Arial,sans-serif;color:var(--text);background:linear-gradient(180deg,rgba(235,243,255,.90),rgba(224,236,255,.88)),url('https://images.unsplash.com/photo-1620712943543-bcc4688e7485?auto=format&fit=crop&w=2200&q=80') center/cover fixed no-repeat;}
-    .topbar{position:fixed;top:0;left:0;right:0;z-index:1000;border-bottom:1px solid var(--line);background:#eef5ffd9;backdrop-filter: blur(10px);}
-    .toc{max-width:1300px;margin:0 auto;padding:10px 18px;display:flex;gap:10px;overflow-x:visible;white-space:normal;flex-wrap:wrap;justify-content:center}
-    .toc a{color:#163864;text-decoration:none;padding:7px 12px;border-radius:999px;border:1px solid #bdd0fa;background:#edf4ff;font-size:.9rem;transition:all .22s ease}
+    .topbar{position:sticky;top:0;left:0;right:0;z-index:1000;border-bottom:1px solid var(--line);background:#eef5ffd9;backdrop-filter: blur(10px);}
+    .toc{max-width:1300px;margin:0 auto;padding:8px 14px;display:flex;gap:8px;overflow-x:visible;white-space:normal;flex-wrap:wrap;justify-content:center}
+    .toc a{color:#163864;text-decoration:none;padding:6px 10px;border-radius:999px;border:1px solid #bdd0fa;background:#edf4ff;font-size:.82rem;line-height:1.2;transition:all .22s ease}
     .toc a:hover{background:var(--accent);color:#fff;border-color:var(--accent);transform:translateY(-1px)}
     .toc a.active{background:linear-gradient(135deg,#4d7bff,#2fbfff);color:#fff;border-color:#3f72ff;box-shadow:0 6px 14px #4471d43d}
-    .wrap{max-width:1160px;margin:0 auto;padding:88px 20px 24px}
+    .wrap{max-width:1160px;margin:0 auto;padding:18px 20px 24px}
     .hero{border:1px solid var(--line);border-radius:22px;padding:24px;background:linear-gradient(135deg,#edf4ff,#e6f0ff 36%,#e9fbff);box-shadow:0 12px 30px #7692be3d;margin-bottom:16px}
     .hero h1{margin:0 0 8px;font-size:2rem;line-height:1.2} .sub{color:#355178}
     .tech-widget{margin-top:14px;display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:10px}
@@ -123,6 +123,19 @@
 
       sections.forEach(sec => io.observe(sec));
       if (sections[0]) setActive(sections[0].id);
+
+      // 4) Shorten long nav labels for cleaner top bar.
+      const navAlias = {
+        "Introduction: What Counts as \"Meaningful Improvement\" in Oral English Education?": "Introduction",
+        "Application Domain, Current Challenges, and the Case for AI/ML Adoption": "Domain & Challenges",
+        "How Different AI/ML Technologies Address Domain Challenges": "AI/ML Technologies",
+        "Wider Ethical Implications of AI/ML in Language Education": "Ethical Implications",
+        "Conclusion: A Conditional Adoption Framework": "Conclusion Framework"
+      };
+      navLinks.forEach(a => {
+        const t = a.textContent.trim();
+        if (navAlias[t]) a.textContent = navAlias[t];
+      });
     })();
   </script>
 </body>
