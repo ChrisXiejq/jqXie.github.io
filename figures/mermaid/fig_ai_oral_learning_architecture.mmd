@@ -1,0 +1,14 @@
+flowchart LR
+    U[User Speech Input] --> VAD[VAD / Denoise]
+    VAD --> ASR[ASR Engine<br/>Streaming RNN-T/CTC]
+    ASR --> CONF[Token Confidence + Uncertainty]
+    CONF --> DIAG[Pronunciation and Prosody Scoring<br/>GOP / Stress / Intonation / Pause]
+    DIAG --> LLM[LLM Tutor Core<br/>SFT + Preference Optimization]
+    KB[Policy and Curriculum KB] --> RAG[RAG Retriever]
+    RAG --> LLM
+    LLM --> AGENT[Dialogue Manager / Agent Orchestration]
+    AGENT --> MEM[Long-term Learner Memory]
+    MEM --> AGENT
+    AGENT --> UI[Feedback + Next Task + Explanation]
+    UI --> U
+    AGENT --> HUMAN[Teacher Override / Escalation]
