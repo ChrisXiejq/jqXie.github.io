@@ -24,6 +24,7 @@
     p{line-height:1.76;margin:.45rem 0} ul,ol{margin:.35rem 0 .9rem 1.2rem} li{line-height:1.7;margin:.22rem 0}
     blockquote{margin:10px 0;padding:10px 12px;border-left:4px solid var(--accent2);border-radius:8px;background:#e9fbff99}
     .fig{margin:10px 0 12px;border:1px solid #c0d5fd;border-radius:12px;background:#fff;overflow:hidden} .fig img{display:block;width:100%} .fig figcaption{font-size:.9rem;color:#3c5c86;padding:8px 10px}
+    .fig.narrow{max-width:68%;margin-left:auto;margin-right:auto}
     .cite{color:#2d62d6;text-decoration:underline;text-underline-offset:2px}
     .ai-grid{display:block;margin-top:8px}
     .ai-card{border:1px solid #bed2fa;border-radius:14px;background:#ffffffee;padding:12px;margin-bottom:12px} .ai-card h4{margin:0 0 8px;color:#1f4c8e}
@@ -136,6 +137,59 @@
       navLinks.forEach(a => {
         const t = a.textContent.trim();
         if (navAlias[t]) a.textContent = navAlias[t];
+      });
+
+      // 5) Lock all figure positions to report structure.
+      const findHeading = (root, text) =>
+        Array.from(root.querySelectorAll("h3, h4")).find(h => h.textContent.trim() === text);
+      const findFigureBySrc = (src) => {
+        const img = Array.from(article.querySelectorAll("img")).find(i => (i.getAttribute("src") || "").includes(src));
+        return img ? img.closest("figure") : null;
+      };
+      const createFigure = (src, cap, narrow = false) => {
+        const fig = document.createElement("figure");
+        fig.className = narrow ? "fig narrow" : "fig";
+        fig.innerHTML = `<img src="${src}" alt="${cap}"><figcaption>${cap}</figcaption>`;
+        return fig;
+      };
+      const placeFigure = ({src, caption, sectionId, beforeHeading, narrow}) => {
+        const section = article.querySelector(`#${sectionId}`);
+        if (!section) return;
+        let fig = findFigureBySrc(src);
+        if (!fig) fig = createFigure(src, caption, !!narrow);
+        fig.remove();
+        if (narrow) fig.classList.add("narrow");
+        const anchor = findHeading(section, beforeHeading);
+        if (anchor) anchor.before(fig); else section.appendChild(fig);
+      };
+
+      placeFigure({
+        src: "figures/fig_constraints_outcomes_chain.png",
+        caption: "Constraint-outcome mechanism in oral English learning.",
+        sectionId: "application-domain-current-challenges-and-the-case-for-ai-ml-adoption",
+        beforeHeading: "Why AI/ML Is Rational in This Domain",
+        narrow: true
+      });
+      placeFigure({
+        src: "figures/fig_education_constraint_metrics_new.png",
+        caption: "Selected macro indicators related to educational delivery constraints.",
+        sectionId: "application-domain-current-challenges-and-the-case-for-ai-ml-adoption",
+        beforeHeading: "Scale and Availability Argument",
+        narrow: false
+      });
+      placeFigure({
+        src: "figures/fig_ai_oral_learning_architecture.png",
+        caption: "Technical architecture of an AI oral-learning stack.",
+        sectionId: "how-different-ai-ml-technologies-address-domain-challenges",
+        beforeHeading: "Recent Developments in AI/ML in Language Education",
+        narrow: false
+      });
+      placeFigure({
+        src: "figures/fig_asr_fairness_ethics_radar.png",
+        caption: "Illustrative disparity in ASR error rates across speaker groups.",
+        sectionId: "wider-ethical-implications-of-ai-ml-in-language-education",
+        beforeHeading: "Bias and Fairness: From Model Error to Educational Opportunity",
+        narrow: false
       });
     })();
   </script>
