@@ -56,7 +56,7 @@
     .interactive-card{border:1px solid var(--line);border-radius:14px;background:var(--card);padding:12px}
     .chart-wrap{height:280px}
     .mermaid{background:var(--card);border:1px dashed var(--line);border-radius:12px;padding:8px}
-    .wave-wrap{border:1px dashed var(--line);border-radius:10px;padding:8px;background:rgba(255,255,255,.4)}
+    .asr-row{display:grid;grid-template-columns:.72fr 1fr 1fr;gap:10px;align-items:stretch}
     .sound-wave{display:flex;align-items:flex-end;gap:4px;height:64px;padding:8px 6px;border:1px dashed var(--line);border-radius:10px;background:rgba(255,255,255,.45)}
     .sound-wave span{display:block;width:5px;background:linear-gradient(180deg,#79beff,#3e74ff);border-radius:999px;animation:wavePulse 1.1s ease-in-out infinite}
     .sound-wave span:nth-child(2){animation-delay:.08s}
@@ -70,7 +70,7 @@
     .sound-wave span:nth-child(10){animation-delay:.72s}
     .sound-wave span:nth-child(11){animation-delay:.80s}
     .sound-wave span:nth-child(12){animation-delay:.88s}
-    .compare-box{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+    .compare-box{display:contents}
     .pron-line{font-family:ui-monospace,SFMono-Regular,Menlo,monospace;font-size:.95rem}
     .ok{color:#2aa56a;font-weight:700}.bad{color:#d84f4f;font-weight:700}
     .math-fade .mjx-container{animation:mathFade .8s ease both}
@@ -81,7 +81,7 @@
       .toc{justify-content:center}
       .wrap{padding:18px 20px 24px}
     }
-    @media (max-width:980px){.hero h1{font-size:1.5rem} .tech-widget{grid-template-columns:1fr} .interactive-grid,.compare-box{grid-template-columns:1fr}}
+    @media (max-width:980px){.hero h1{font-size:1.5rem} .tech-widget{grid-template-columns:1fr} .interactive-grid,.asr-row{grid-template-columns:1fr}}
   </style>
 </head>
 <body>
@@ -552,13 +552,12 @@
         card.className = "interactive-card";
         card.innerHTML = `
           <h3>ASR Visualization Demo</h3>
-          <div class="wave-wrap" id="waveform"></div>
-          <div class="sound-wave" aria-hidden="true">
-            <span></span><span></span><span></span><span></span><span></span><span></span>
-            <span></span><span></span><span></span><span></span><span></span><span></span>
-          </div>
           <p style="font-size:.9rem;opacity:.85">Waveform-style signal and phoneme-level contrast for illustrating ASR feedback capability.</p>
-          <div class="compare-box">
+          <div class="asr-row">
+            <div class="sound-wave" aria-hidden="true">
+              <span></span><span></span><span></span><span></span><span></span><span></span>
+              <span></span><span></span><span></span><span></span><span></span><span></span>
+            </div>
             <div class="interactive-card">
               <h4>Student Phoneme Stream</h4>
               <p class="pron-line"><span class="ok">/həˈloʊ/</span> <span class="bad">/wɜːld/</span> <span class="bad">/spikɪŋ/</span></p>
@@ -570,18 +569,6 @@
           </div>
         `;
         asrSection.after(card);
-        if (window.WaveSurfer) {
-          const ws = WaveSurfer.create({
-            container: "#waveform",
-            waveColor: "#7fb7ff",
-            progressColor: "#315bff",
-            height: 72,
-            barWidth: 2,
-            barGap: 2,
-            barRadius: 2
-          });
-          ws.load("https://upload.wikimedia.org/wikipedia/commons/4/47/Sine_wave_440.ogg");
-        }
       }
 
       // 12) Enable MathJax fade class on blocks containing formulas.
