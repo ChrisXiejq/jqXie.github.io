@@ -250,6 +250,20 @@
       const article = document.querySelector("article");
       if (!article) return;
 
+      // 0) Convert literal {quote}...{quote} leftovers into real blockquotes.
+      article.querySelectorAll("p").forEach((p) => {
+        const txt = (p.textContent || "").trim();
+        if (txt.startsWith("{quote}") && txt.endsWith("{quote}")) {
+          const inner = txt.replace(/^\{quote\}\s*/i, "").replace(/\s*\{quote\}$/i, "");
+          const bq = document.createElement("blockquote");
+          bq.innerHTML = p.innerHTML
+            .replace(/^\s*\{quote\}\s*/i, "")
+            .replace(/\s*\{quote\}\s*$/i, "");
+          if (!bq.textContent.trim()) bq.textContent = inner;
+          p.replaceWith(bq);
+        }
+      });
+
       // 1) Make level-4 headings collapsible (outside AI mini-cards).
       const h4s = Array.from(article.querySelectorAll("h4")).filter(h4 => !h4.closest(".ai-card"));
       h4s.forEach(h4 => {
