@@ -86,7 +86,7 @@
 </head>
 <body>
   <div class="progress-bar" id="reading-progress"></div>
-  <header class="topbar"><nav class="toc"><a href='#abstract'>Abstract</a><a href='#introduction-what-counts-as-meaningful-improvement-in-oral-english-education'>Introduction: What Counts as &quot;Meaningful Improvement&quot; in Oral English Education?</a><a href='#application-domain-current-challenges-and-the-case-for-ai-ml-adoption'>Application Domain, Current Challenges, and the Case for AI/ML Adoption</a><a href='#how-different-ai-ml-technologies-address-domain-challenges'>How Different AI/ML Technologies Address Domain Challenges</a><a href='#wider-ethical-implications-of-ai-ml-in-language-education'>Wider Ethical Implications of AI/ML in Language Education</a><a href='#conclusion-a-conditional-adoption-framework'>Conclusion: A Conditional Adoption Framework</a><a href='#references'>References</a></nav></header>
+  <header class="topbar"><nav class="toc"><a href='#abstract'>Abstract</a><a href='#introduction'>Introduction: What Counts as &quot;Meaningful Improvement&quot; in Oral English Education?</a><a href='#application-domain-current-challenges-and-the-case-for-ai-ml-adoption'>Application Domain, Current Challenges, and the Case for AI/ML Adoption</a><a href='#how-different-ai-ml-technologies-address-domain-challenges'>How Different AI/ML Technologies Address Domain Challenges</a><a href='#wider-ethical-implications-of-ai-ml-in-language-education'>Wider Ethical Implications of AI/ML in Language Education</a><a href='#conclusion'>Conclusion: A Conditional Adoption Framework</a><a href='#references'>References</a></nav></header>
   <main class="wrap">
     <section class="hero">
       <h1>A Machine-Learning-Centered Evaluation of Conversational AI for Oral English Learning</h1>
@@ -376,15 +376,18 @@
         if (cur) cur.classList.add("active");
       };
 
-      const io = new IntersectionObserver((entries) => {
-        const visible = entries
-          .filter(e => e.isIntersecting)
-          .sort((a,b) => b.intersectionRatio - a.intersectionRatio);
-        if (visible[0]) setActive(visible[0].target.id);
-      }, { rootMargin: "-30% 0px -55% 0px", threshold: [0.15, 0.35, 0.6] });
-
-      sections.forEach(sec => io.observe(sec));
-      if (sections[0]) setActive(sections[0].id);
+      const updateActiveByScroll = () => {
+        if (!sections.length) return;
+        const probeY = window.scrollY + 140;
+        let current = sections[0];
+        for (const sec of sections) {
+          if (sec.offsetTop <= probeY) current = sec;
+          else break;
+        }
+        setActive(current.id);
+      };
+      window.addEventListener("scroll", updateActiveByScroll, { passive: true });
+      updateActiveByScroll();
 
       // 4) Shorten long nav labels for cleaner top bar.
       const navAlias = {
