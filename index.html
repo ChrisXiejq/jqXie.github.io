@@ -4,16 +4,34 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>AI in Oral English Learning — Blog</title>
+  <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.3/dist/chart.umd.min.js"></script>
+  <script type="module">
+    import mermaid from "https://cdn.jsdelivr.net/npm/mermaid@11/dist/mermaid.esm.min.mjs";
+    window.mermaid = mermaid;
+  </script>
+  <script src="https://unpkg.com/wavesurfer.js@7/dist/wavesurfer.min.js"></script>
+  <script>
+    window.MathJax = {
+      tex: { inlineMath: [["$", "$"], ["\\(", "\\)"]] },
+      svg: { fontCache: "global" }
+    };
+  </script>
+  <script defer src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-svg.js"></script>
   <style>
-    :root{--bg:#e9f2ff;--panel:#f8fbffeb;--card:#ffffffee;--text:#0f2a56;--line:#b8cdf6;--accent:#3f72ff;--accent2:#31c8ff;}
+    :root{--bg:#e9f2ff;--panel:#f8fbffeb;--card:#ffffffee;--text:#0f2a56;--line:#b8cdf6;--accent:#3f72ff;--accent2:#31c8ff;--glass:rgba(234,244,255,.62);}
+    body.dark{--bg:#0e1726;--panel:#101c2fd9;--card:#12233ade;--text:#dfeaff;--line:#2f466b;--accent:#73a2ff;--accent2:#61e3ff;--glass:rgba(14,24,40,.66);}
     *{box-sizing:border-box} html,body{margin:0;padding:0;scroll-behavior:smooth}
     body{font-family:Inter,Segoe UI,Arial,sans-serif;color:var(--text);background:linear-gradient(180deg,rgba(235,243,255,.90),rgba(224,236,255,.88)),url('https://images.unsplash.com/photo-1620712943543-bcc4688e7485?auto=format&fit=crop&w=2200&q=80') center/cover fixed no-repeat;}
-    .topbar{position:sticky;top:0;left:0;right:0;z-index:1000;border-bottom:1px solid var(--line);background:#eef5ffd9;backdrop-filter: blur(10px);}
-    .toc{max-width:1300px;margin:0 auto;padding:8px 14px;display:flex;gap:8px;overflow-x:visible;white-space:normal;flex-wrap:wrap;justify-content:center}
+    body.dark{background:linear-gradient(180deg,rgba(10,18,30,.95),rgba(8,14,26,.92)),url('https://images.unsplash.com/photo-1620712943543-bcc4688e7485?auto=format&fit=crop&w=2200&q=80') center/cover fixed no-repeat;}
+    .progress-bar{position:fixed;top:0;left:0;height:3px;width:0;background:linear-gradient(90deg,#3ec5ff,#6f7bff);z-index:1200;box-shadow:0 0 12px #5aa7ff;}
+    .theme-toggle{position:fixed;right:14px;top:10px;z-index:1201;border:1px solid var(--line);background:var(--glass);color:var(--text);backdrop-filter:blur(12px);border-radius:999px;padding:6px 12px;cursor:pointer}
+    .topbar{position:fixed;top:14px;left:16px;bottom:14px;width:270px;z-index:1000;border:1px solid var(--line);background:var(--glass);backdrop-filter: blur(14px);border-radius:16px;box-shadow:0 12px 34px #35538933;overflow:auto}
+    .toc{max-width:100%;margin:0;padding:14px;display:flex;gap:8px;overflow-x:visible;white-space:normal;flex-wrap:wrap;justify-content:flex-start}
     .toc a{color:#163864;text-decoration:none;padding:6px 10px;border-radius:999px;border:1px solid #bdd0fa;background:#edf4ff;font-size:.82rem;line-height:1.2;transition:all .22s ease}
     .toc a:hover{background:var(--accent);color:#fff;border-color:var(--accent);transform:translateY(-1px)}
     .toc a.active{background:linear-gradient(135deg,#4d7bff,#2fbfff);color:#fff;border-color:#3f72ff;box-shadow:0 6px 14px #4471d43d}
-    .wrap{max-width:1160px;margin:0 auto;padding:18px 20px 24px}
+    body.dark .toc a{color:#dbe8ff;background:#162943;border-color:#28466f}
+    .wrap{max-width:1160px;margin:0 auto;padding:18px 20px 24px 312px}
     .hero{border:1px solid var(--line);border-radius:22px;padding:24px;background:linear-gradient(135deg,#edf4ff,#e6f0ff 36%,#e9fbff);box-shadow:0 12px 30px #7692be3d;margin-bottom:16px}
     .hero h1{margin:0 0 8px;font-size:2rem;line-height:1.2} .sub{color:#355178}
     .tech-widget{margin-top:14px;display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:10px}
@@ -22,7 +40,8 @@
     .section-card{border:1px solid var(--line);border-radius:18px;background:var(--panel);padding:20px 22px;box-shadow:0 10px 26px #6f87aa2a}
     .section-card h2{margin:0 0 12px;color:#224d8b;border-bottom:1px solid #d5e3ff;padding-bottom:8px} h3{margin:14px 0 6px;color:#2d5fa6} h4{margin:10px 0 6px;color:#3d659b}
     p{line-height:1.76;margin:.45rem 0} ul,ol{margin:.35rem 0 .9rem 1.2rem} li{line-height:1.7;margin:.22rem 0}
-    blockquote{margin:10px 0;padding:10px 12px;border-left:4px solid var(--accent2);border-radius:8px;background:#e9fbff99}
+    blockquote{margin:12px 0;padding:14px 14px 14px 18px;border-left:5px solid var(--accent2);border-radius:10px;background:#e9fbff99;position:relative;overflow:hidden}
+    blockquote::before{content:"“";position:absolute;right:8px;top:-6px;font-size:72px;line-height:1;color:#7ec9ff2e;font-weight:700;pointer-events:none}
     .fig{margin:10px 0 12px;border:1px solid #c0d5fd;border-radius:12px;background:#fff;overflow:hidden} .fig img{display:block;width:100%} .fig figcaption{font-size:.9rem;color:#3c5c86;padding:8px 10px}
     .fig.narrow{max-width:68%;margin-left:auto;margin-right:auto}
     .cite{color:#2d62d6;text-decoration:underline;text-underline-offset:2px}
@@ -37,10 +56,27 @@
     .h4-fold{border-left:4px solid #5d8aed}
     .refs .ref-item{margin:9px 0;padding-left:1.7em;text-indent:-1.7em;line-height:1.72}
     .refs a{word-break:break-all}
-    @media (max-width:980px){.hero h1{font-size:1.5rem} .tech-widget{grid-template-columns:1fr}}
+    .interactive-grid{display:grid;grid-template-columns:1fr 1fr;gap:14px}
+    .interactive-card{border:1px solid var(--line);border-radius:14px;background:var(--card);padding:12px}
+    .chart-wrap{height:280px}
+    .mermaid{background:var(--card);border:1px dashed var(--line);border-radius:12px;padding:8px}
+    .wave-wrap{border:1px dashed var(--line);border-radius:10px;padding:8px;background:rgba(255,255,255,.4)}
+    .compare-box{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+    .pron-line{font-family:ui-monospace,SFMono-Regular,Menlo,monospace;font-size:.95rem}
+    .ok{color:#2aa56a;font-weight:700}.bad{color:#d84f4f;font-weight:700}
+    .math-fade .mjx-container{animation:mathFade .8s ease both}
+    @keyframes mathFade{from{opacity:0;transform:translateY(4px)}to{opacity:1;transform:none}}
+    @media (max-width:1120px){
+      .topbar{position:sticky;top:0;left:0;right:0;bottom:auto;width:auto;border-radius:0}
+      .toc{justify-content:center}
+      .wrap{padding:18px 20px 24px}
+    }
+    @media (max-width:980px){.hero h1{font-size:1.5rem} .tech-widget{grid-template-columns:1fr} .interactive-grid,.compare-box{grid-template-columns:1fr}}
   </style>
 </head>
 <body>
+  <div class="progress-bar" id="reading-progress"></div>
+  <button class="theme-toggle" id="theme-toggle" type="button">🌙 Dark</button>
   <header class="topbar"><nav class="toc"><a href='#abstract'>Abstract</a><a href='#introduction-what-counts-as-meaningful-improvement-in-oral-english-education'>Introduction: What Counts as &quot;Meaningful Improvement&quot; in Oral English Education?</a><a href='#application-domain-current-challenges-and-the-case-for-ai-ml-adoption'>Application Domain, Current Challenges, and the Case for AI/ML Adoption</a><a href='#how-different-ai-ml-technologies-address-domain-challenges'>How Different AI/ML Technologies Address Domain Challenges</a><a href='#wider-ethical-implications-of-ai-ml-in-language-education'>Wider Ethical Implications of AI/ML in Language Education</a><a href='#conclusion-a-conditional-adoption-framework'>Conclusion: A Conditional Adoption Framework</a><a href='#references'>References</a></nav></header>
   <main class="wrap">
     <section class="hero">
@@ -258,6 +294,52 @@
         ).join("");
       }
 
+      // 2.5) Clean raw BibTeX keys in body text into readable citations.
+      const citationKeyMap = {
+        openai2024hello: { label: "OpenAI, 2024", refId: "ref-openai2024hello" },
+        eugpai2025: { label: "European Commission, 2025", refId: "ref-eugpai2025" },
+        koenecke2020asr: { label: "Koenecke et al., 2020", refId: "ref-koenecke2020asr" },
+        ouyang2022instructgpt: { label: "Ouyang et al., 2022", refId: "ref-ouyang2022" },
+        lewis2020rag: { label: "Lewis et al., 2020", refId: "ref-lewis2020rag" },
+        ji2023hallucination: { label: "Ji et al., 2023", refId: "ref-ji2023" },
+        eu2016gdpr: { label: "EU, 2016", refId: "ref-eu2016" },
+        nissenbaum2010privacy: { label: "Nissenbaum, 2010", refId: "ref-nissenbaum2010" },
+        selbst2019abstraction: { label: "Selbst et al., 2019", refId: "ref-selbst2019" },
+        unesco2023: { label: "Miao and Holmes, 2023", refId: "ref-unesco2023" },
+        unesco2023teachers: { label: "UNESCO, 2024", refId: "ref-unesco-teachers" },
+        worldbank2024learningpoverty: { label: "World Bank, 2022", refId: "ref-worldbank2024" },
+        itu2023facts: { label: "ITU, 2023", refId: "ref-itu2023" }
+      };
+
+      const keyPattern = new RegExp(
+        `\\b(${Object.keys(citationKeyMap).join("|")})\\b`,
+        "g"
+      );
+
+      const cleanCitationKeys = (root) => {
+        const walker = document.createTreeWalker(root, NodeFilter.SHOW_TEXT);
+        const nodes = [];
+        while (walker.nextNode()) nodes.push(walker.currentNode);
+        nodes.forEach((textNode) => {
+          const parent = textNode.parentElement;
+          if (!parent) return;
+          if (parent.closest("#references")) return;
+          if (parent.tagName === "SCRIPT" || parent.tagName === "STYLE") return;
+          const raw = textNode.nodeValue;
+          if (!raw || !keyPattern.test(raw)) return;
+          keyPattern.lastIndex = 0;
+          const replaced = raw.replace(keyPattern, (_, key) => {
+            const item = citationKeyMap[key];
+            if (!item) return key;
+            return `<a class="cite" href="#${item.refId}">${item.label}</a>`;
+          });
+          const span = document.createElement("span");
+          span.innerHTML = replaced;
+          textNode.replaceWith(...span.childNodes);
+        });
+      };
+      cleanCitationKeys(article);
+
       // 3) Highlight current section in top navbar while scrolling.
       const navLinks = Array.from(document.querySelectorAll(".toc a"));
       const sections = navLinks
@@ -393,6 +475,137 @@
         const base = (a.dataset.baseText || a.textContent).replace(/^\d+(\.\d+)*\s+/, "").trim();
         a.dataset.baseText = base;
         a.textContent = `${n}. ${base}`;
+      });
+
+      // 7) Reading progress bar.
+      const progress = document.getElementById("reading-progress");
+      const updateProgress = () => {
+        const scrollTop = window.scrollY || document.documentElement.scrollTop;
+        const scrollHeight = document.documentElement.scrollHeight - window.innerHeight;
+        const pct = scrollHeight > 0 ? (scrollTop / scrollHeight) * 100 : 0;
+        progress.style.width = `${Math.min(100, Math.max(0, pct))}%`;
+      };
+      window.addEventListener("scroll", updateProgress, { passive: true });
+      updateProgress();
+
+      // 8) Dark mode toggle.
+      const toggle = document.getElementById("theme-toggle");
+      const savedTheme = localStorage.getItem("blog-theme");
+      if (savedTheme === "dark") document.body.classList.add("dark");
+      const syncThemeBtn = () => {
+        toggle.textContent = document.body.classList.contains("dark") ? "☀️ Light" : "🌙 Dark";
+      };
+      syncThemeBtn();
+      toggle.addEventListener("click", () => {
+        document.body.classList.toggle("dark");
+        localStorage.setItem("blog-theme", document.body.classList.contains("dark") ? "dark" : "light");
+        syncThemeBtn();
+      });
+
+      // 9) Interactive ASR chart.
+      const ethics = article.querySelector("#wider-ethical-implications-of-ai-ml-in-language-education");
+      if (ethics) {
+        const chartCard = document.createElement("div");
+        chartCard.className = "interactive-card";
+        chartCard.innerHTML = `
+          <h3>Interactive ASR Disparity Chart</h3>
+          <p>Hover each bar to inspect the exact WER value.</p>
+          <div class="chart-wrap"><canvas id="asrBarChart"></canvas></div>
+        `;
+        ethics.insertBefore(chartCard, ethics.querySelector("h3"));
+        const ctx = chartCard.querySelector("#asrBarChart");
+        if (ctx && window.Chart) {
+          new Chart(ctx, {
+            type: "bar",
+            data: {
+              labels: ["Black Speakers", "White Speakers"],
+              datasets: [{ label: "Word Error Rate", data: [0.35, 0.19], backgroundColor: ["#6b86ff", "#53c9ff"], borderRadius: 10 }]
+            },
+            options: {
+              responsive: true,
+              maintainAspectRatio: false,
+              plugins: {
+                tooltip: { callbacks: { label: (c) => `WER: ${(c.parsed.y * 100).toFixed(1)}%` } },
+                legend: { display: false }
+              },
+              scales: { y: { beginAtZero: true, max: 0.4, ticks: { callback: (v) => `${Math.round(v * 100)}%` } } }
+            }
+          });
+        }
+      }
+
+      // 10) Mermaid pipeline diagram + technical accordions.
+      const tech = article.querySelector("#how-different-ai-ml-technologies-address-domain-challenges");
+      if (tech) {
+        const interactive = document.createElement("div");
+        interactive.className = "interactive-grid";
+        interactive.innerHTML = `
+          <div class="interactive-card">
+            <h3>Dynamic Pipeline (Mermaid)</h3>
+            <pre class="mermaid">
+flowchart LR
+  A[Speech Audio Stream] --> B[ASR: Token + Confidence]
+  B --> C[Pronunciation/Prosody Scoring]
+  C --> D[LLM Feedback Core]
+  D --> E[Dialogue Agent Policy]
+  E --> F[Personalized Next Task]
+  E --> G[Teacher Review Gate]
+            </pre>
+          </div>
+          <div class="interactive-card">
+            <h3>Technical Deep Dive (Accordion)</h3>
+            <details><summary>ASR uncertainty routing</summary><p>Low-confidence tokens are flagged and routed to confirmation before correction.</p></details>
+            <details><summary>Scoring consistency</summary><p>Multi-rater labels and rubric constraints stabilize noisy pronunciation judgments.</p></details>
+            <details><summary>LLM faithfulness control</summary><p>Retrieval-grounded responses and policy filters reduce hallucination risk.</p></details>
+          </div>
+        `;
+        const firstH3 = tech.querySelector("h3");
+        if (firstH3) firstH3.before(interactive);
+        if (window.mermaid) {
+          window.mermaid.initialize({ startOnLoad: false, theme: "neutral" });
+          window.mermaid.run({ nodes: interactive.querySelectorAll(".mermaid") });
+        }
+      }
+
+      // 11) Multimodal audio experience (wavesurfer + comparison card).
+      const asrSection = Array.from(article.querySelectorAll("h3")).find(h => h.textContent.includes("Automatic Speech Recognition"));
+      if (asrSection) {
+        const card = document.createElement("div");
+        card.className = "interactive-card";
+        card.innerHTML = `
+          <h3>Multimodal Speech Demo</h3>
+          <div class="wave-wrap" id="waveform"></div>
+          <audio controls style="width:100%;margin-top:8px" src="https://upload.wikimedia.org/wikipedia/commons/8/8e/En-us-hello.ogg"></audio>
+          <p style="font-size:.9rem;opacity:.85">Sample voice clip for pronunciation analysis demo.</p>
+          <div class="compare-box">
+            <div class="interactive-card">
+              <h4>Student Recording (Phoneme Stream)</h4>
+              <p class="pron-line"><span class="ok">/həˈloʊ/</span> <span class="bad">/wɜːld/</span> <span class="bad">/spikɪŋ/</span></p>
+            </div>
+            <div class="interactive-card">
+              <h4>AI Visual Feedback</h4>
+              <p class="pron-line"><span class="ok">/həˈloʊ/ ✓</span> <span class="bad">/wɝːld/ → /wɜːld/</span> <span class="ok">/ˈspiːkɪŋ/ ✓</span></p>
+            </div>
+          </div>
+        `;
+        asrSection.after(card);
+        if (window.WaveSurfer) {
+          const ws = WaveSurfer.create({
+            container: "#waveform",
+            waveColor: "#7fb7ff",
+            progressColor: "#315bff",
+            height: 90,
+            barWidth: 3,
+            barGap: 2,
+            barRadius: 2
+          });
+          ws.load("https://upload.wikimedia.org/wikipedia/commons/8/8e/En-us-hello.ogg");
+        }
+      }
+
+      // 12) Enable MathJax fade class on blocks containing formulas.
+      article.querySelectorAll("p,li,blockquote").forEach(el => {
+        if (/[=^_]|\\(|\\)|\\[|\\]|\\frac/.test(el.textContent)) el.classList.add("math-fade");
       });
     })();
   </script>
