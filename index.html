@@ -106,7 +106,7 @@
 <p>Oral English learning is one of the most challenging domains in language education. It depends heavily on speaker-listener interaction, immediate feedback and confidence-building over time. Unlike reading or listening tasks, where learners can practice independently and receive delayed and objective feedback, oral learning requires learners to practice with a teacher or a partner, and improve through feedback. Therefore, oral English learning is a high-interaction task that requires a lot of educational resources and time, which potentially leads to inequality since resources are limited for most learners.</p>
 <p>Many educational institutions are now considering introducing AI to language education, considering that compared to human teachers, AI can provide more consistent and immediate feedback, and can scale to a larger number of learners at lower costs. Currently, AI capabilities have advanced rapidly. Since 2023, mainstream AI technologies have moved from text-only tutoring prototypes to multimodal, speech-based systems. In 2024, OpenAI released GPT-4o with near-real-time multimodal interaction capabilities and reported substantially lower audio-interaction latency than earlier pipeline architectures (openai2024hello). Across the industry, this development has fueled expectations that AI could function as a "24/7 speaking tutor." At the governance level, the EU AI Act entered into force in August 2024, with staged obligations in 2025 and 2026, and the General-Purpose AI Code of Practice was published in July 2025 as a voluntary compliance instrument for GPAI providers (eugpai2025), which indicates the regulation of AI is becoming more mature.</p>
 <p>Simply introducing AI to education is not equivalent to educational improvement, and it motivates the main proposition of this blog.</p>
-<p>{quote} <strong>Conversational AI can improve oral English learning mainly by increasing speaking opportunities, reducing feedback latency, and supporting individualized patterns; however, such gains become educationally meaningful only when systems satisfy ethically acceptable conditions: pedagogical alignment, subgroup-robust ML performance, transparent feedback, privacy and data protection, accountability, and teacher-in-the-loop oversight.</strong> {quote}</p>
+<blockquote><strong>Conversational AI can improve oral English learning mainly by increasing speaking opportunities, reducing feedback latency, and supporting individualized patterns; however, such gains become educationally meaningful only when systems satisfy ethically acceptable conditions: pedagogical alignment, subgroup-robust ML performance, transparent feedback, privacy and data protection, accountability, and teacher-in-the-loop oversight.</strong></blockquote>
 
 
 </section><section class='section-card' id='application-domain-current-challenges-and-the-case-for-ai-ml-adoption'><h2>Application Domain, Current Challenges, and the Case for AI/ML Adoption</h2>
@@ -141,7 +141,7 @@
 <p>Simply encouraging learners to speak is not enough. Learners need to be provided with a safe and supportive environment to speak, and the environment should be designed to be friendly and engaging. However, such methods are hard to implement in practice, which generally increases the costs and lays extra workload on teachers.</p>
 <figure class='fig'><img src='figures/fig_constraints_outcomes_chain.png' alt='Constraint-outcome mechanism in oral English learning.'><figcaption>Constraint-outcome mechanism in oral English learning.</figcaption></figure>
 <h3>Why AI/ML Is Rational in This Domain</h3>
-<p>The constraints mentioned in section sec:challenges_in_oral_learning and shown in Fig.~fig:constraints_outcomes_chain are mainly caused by the labor resource limitation which is hard to solve in traditional human-only systems. At the same time, around 70% of 10-year-olds in low- and middle-income countries are estimated to face learning poverty, which highlights the scale pressure for scalable support tools in foundational learning systems (worldbank2024learningpoverty), as reflected in Fig.~fig:macro_constraint_metrics. The education industry can take advantage of AI/ML that is scalable and cost-effective to address these constraints. However, AI/ML is rational in oral English education only when implemented as augmentation rather than replacement.</p>
+<p>The constraints mentioned in the previous section and shown in the figure are mainly caused by labor resource limitations, which are hard to solve in traditional human-only systems. At the same time, around 70% of 10-year-olds in low- and middle-income countries are estimated to face learning poverty, which highlights the scale pressure for scalable support tools in foundational learning systems (worldbank2024learningpoverty), as reflected in the figure. The education industry can take advantage of AI/ML that is scalable and cost-effective to address these constraints. However, AI/ML is rational in oral English education only when implemented as augmentation rather than replacement.</p>
 <figure class='fig'><img src='figures/fig_education_constraint_metrics_new.png' alt='Selected macro indicators related to educational delivery constraints.'><figcaption>Selected macro indicators related to educational delivery constraints.</figcaption></figure>
 <h4>Scale and Availability Argument</h4>
 <p>ML systems can provide continuous practice sessions at low marginal cost, which directly addresses these constraints. A learner can practice speaking with the system at any time and any place, not being limited by the instructor's availability and the learner's schedule. In traditional classroom settings, individual learners' access to the teacher is constrained by scarce instructor time; but with AI-enhanced practice, available learning time is effectively bounded by learner motivation and device access rather than by a fixed schedule.</p>
@@ -171,7 +171,7 @@
 <li><strong>Large Language Models (LLMs)</strong>: turned into feedback and dialogue moves;</li>
 <li><strong>Dialogue Management and Agentic Orchestration</strong>: adapted over time through learner modeling and used to provide historical context for feedback and dialogue moves.</li>
 </ul>
-<p>ASR converts speech to text and ideally returns confidence scores alongside tokens, which is then diagnosed for linguistic issues by pronunciation and prosody scoring models. The LLMs then produce contextual replies and feedback for learners, and the dialogue management and agentic orchestration module controls the feedback timing, traces aggregation and learner modeling. These together build a coherent pipeline for oral English learning, as illustrated in Fig.~fig:ai_oral_learning_architecture.</p>
+<p>ASR converts speech to text and ideally returns confidence scores alongside tokens, which is then diagnosed for linguistic issues by pronunciation and prosody scoring models. The LLMs then produce contextual replies and feedback for learners, and the dialogue management and agentic orchestration module controls feedback timing, trace aggregation, and learner modeling. These together build a coherent pipeline for oral English learning, as illustrated in the figure.</p>
 <figure class='fig'><img src='figures/fig_ai_oral_learning_architecture.png' alt='Technical architecture of an AI oral-learning stack.'><figcaption>Technical architecture of an AI oral-learning stack.</figcaption></figure>
 <h3>Recent Developments in AI/ML in Language Education</h3>
 <p>Recent real-time multimodal systems have made low-latency speech interaction feel dramatically more natural, providing richer vocal cues compared with older cascaded pipelines. OpenAI's 2024 GPT-4o release emphasized near-human latency and integrated audio-text-vision processing (openai2024hello), which means systems can now support low-latency speech interaction at scale. The EU AI Act timeline has moved from proposal to published obligations, and UNESCO's guidance on generative AI in education (unesco2023) continues to emphasize human-centered design, age-appropriate safeguards, and data protection in school settings.</p>
@@ -179,7 +179,7 @@
 <h3>Automatic Speech Recognition (ASR): Foundation Model for Spoken Inputs</h3>
 <h4>Mechanisms</h4>
 <p>Modern ASR is built on self-supervised speech representation learning such as wav2vec-style pretraining, which is followed by sequence modeling with CTC, RNN-T, or related transducer architectures. Model-assisted decoding is also often used later to improve contextual transcription. In practice, the system outputs token hypotheses as well as confidence estimates, and those estimates matter for education since uncertain recognition should not be treated as learner errors. Technically, this is often implemented as a streaming transducer stack where chunk-level incremental decoding is paired with token-level confidence and uncertainty estimation. Low-confidence spans can then be routed into a "needs confirmation" path rather than directly entering the correction loop, which reduces the risk of turning recognition noise into pedagogical misdiagnosis.</p>
-<p>Because ASR makes immediate transcription possible, it directly supports the feedback-latency challenge described in section sec:challenges_in_oral_learning. Furthermore, it can track recurring patterns such as mispronunciations, hesitations and pauses over time, which can provide valuable insights for personalized learning and feedback, reducing repetitive instructor workload while still leaving room for human judgment.</p>
+<p>Because ASR makes immediate transcription possible, it directly supports the feedback-latency challenge described earlier. Furthermore, it can track recurring patterns such as mispronunciations, hesitations and pauses over time, which can provide valuable insights for personalized learning and feedback, reducing repetitive instructor workload while still leaving room for human judgment.</p>
 <h4>Tradeoffs</h4>
 <p>The tradeoffs are mostly related to ML-specific issues. Word error rates can vary substantially by accent, dialect, and recording conditions, and the accent robustness gap cannot be solved by simply averaging performance across users (koenecke2020asr). Outside the classroom, learners may record in noisy environments or with low-quality microphones, which is significantly different from training data and raises reliability concerns. Finally, confidence scores can be miscalibrated, if the system is overconfident when wrong, downstream feedback can mislead learners and reinforce incorrect forms.</p>
 <p>Despite these ML-oriented issues, implementing ASR into oral English learning also brings domain-specific challenges. Acoustic similarity is not the same as communicative intelligibility since "standard accent" norms can encode cultural-linguistic bias. And human ratings in training data can be noisy or inconsistent, which can lead to biased evaluation and decision-making.</p>
@@ -218,7 +218,7 @@
 <p>What matters more is the ethical implications of the AI/ML technologies in oral English learning, rather than simply implementing these technologies in this domain. Ethics should be built into what models optimize for, what data they learn from, and how outputs are used properly, rather than being considered as independent issues. The aim here is not to simply compile a checklist of concerns, but to connect each concern to concrete ML mechanisms and deployment choices.</p>
 <h3>Bias, Fairness, and Linguistic Diversity</h3>
 <h4>Problem Description and Consequences</h4>
-<p>In oral English education, a single error may direct the learner to the wrong learning path, and such effects can accumulate over weeks. For example, if some words are misrecognized more often because of accent or dialect, the learners may receive lower automated scores, sharper corrections, or misleading next-step recommendations, which not only downgrades learners' confidence, but also gives them wrong guidance. According to (koenecke2020asr), the disparity patterns in commercial ASR can be documented, which indicates that ASR recognition errors can introduce risks into the learning process. In that study, average word error rates were approximately 0.35 for Black speakers versus 0.19 for White speakers, showing a substantial subgroup gap that can propagate into educational feedback quality (koenecke2020asr), as shown in Fig.~fig:asr_fairness_ethics_radar.</p>
+<p>In oral English education, a single error may direct the learner to the wrong learning path, and such effects can accumulate over weeks. For example, if some words are misrecognized more often because of accent or dialect, the learners may receive lower automated scores, sharper corrections, or misleading next-step recommendations, which not only downgrades learners' confidence, but also gives them wrong guidance. According to (koenecke2020asr), disparity patterns in commercial ASR can be documented, which indicates that ASR recognition errors can introduce risks into the learning process. In that study, average word error rates were approximately 0.35 for Black speakers versus 0.19 for White speakers, showing a substantial subgroup gap that can propagate into educational feedback quality (koenecke2020asr), as shown in the figure.</p>
 <figure class='fig'><img src='figures/fig_asr_fairness_ethics_radar.png' alt='Illustrative disparity in ASR error rates across speaker groups.'><figcaption>Illustrative disparity in ASR error rates across speaker groups.</figcaption></figure>
 <p>Furthermore, bias can enter at many points in the ML pipeline. Training data may represent learner speech diversity poorly, and labels may be noisy because teachers and raters disagree. Optimization may chase a strong average while hiding subgroup harm, which penalizes those who speak with certain accents or dialects.</p>
 <p>Therefore, fairness is not a static concept, but a moving target once users and models evolve. Biases across subgroups, including accent, dialect, proficiency bands, and device contexts, should be considered. The implementation and publication of the system should be transparent and reviewable by humans, honestly report the limitations and risks of the system, and monitor the drift after deployment.</p>
@@ -362,6 +362,42 @@
         });
       };
       cleanCitationKeys(article);
+
+      // 2.6) Clean LaTeX residue tokens from rendered prose.
+      const cleanLatexResidue = (root) => {
+        const walker = document.createTreeWalker(root, NodeFilter.SHOW_TEXT);
+        const nodes = [];
+        while (walker.nextNode()) nodes.push(walker.currentNode);
+
+        const normalize = (raw) => {
+          let s = raw;
+          // Remove literal quote markers if any are left.
+          s = s.replace(/\{quote\}/gi, "");
+          // Unescape common LaTeX leftovers.
+          s = s.replace(/\\_/g, "_").replace(/\\~/g, "~");
+          // Section label artifacts.
+          s = s.replace(/\bsection\s+sec:[A-Za-z0-9_-]+\b/gi, "the previous section");
+          s = s.replace(/\bsec:[A-Za-z0-9_-]+\b/g, "previous section");
+          // Figure label artifacts.
+          s = s.replace(/Fig\.\s*~?\s*fig:[A-Za-z0-9_-]+/g, "the figure");
+          s = s.replace(/Fig\.\s*\\~\s*fig:[A-Za-z0-9_-]+/g, "the figure");
+          s = s.replace(/\bfig:[A-Za-z0-9_-]+\b/g, "figure");
+          // Collapse excessive spaces produced by replacements.
+          s = s.replace(/\s{2,}/g, " ");
+          return s;
+        };
+
+        nodes.forEach((textNode) => {
+          const parent = textNode.parentElement;
+          if (!parent) return;
+          if (parent.closest("#references")) return;
+          if (parent.tagName === "SCRIPT" || parent.tagName === "STYLE") return;
+          const raw = textNode.nodeValue || "";
+          const cleaned = normalize(raw);
+          if (cleaned !== raw) textNode.nodeValue = cleaned;
+        });
+      };
+      cleanLatexResidue(article);
 
       // 3) Highlight current section in top navbar while scrolling.
       const navLinks = Array.from(document.querySelectorAll(".toc a"));
