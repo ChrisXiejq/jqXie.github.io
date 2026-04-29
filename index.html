@@ -31,7 +31,7 @@
     .toc a:hover{background:var(--accent);color:#fff;border-color:var(--accent);transform:translateY(-1px)}
     .toc a.active{background:linear-gradient(135deg,#4d7bff,#2fbfff);color:#fff;border-color:#3f72ff;box-shadow:0 6px 14px #4471d43d}
     body.dark .toc a{color:#dbe8ff;background:#162943;border-color:#28466f}
-    .wrap{max-width:1160px;margin:0 auto;padding:18px 28px 24px 360px}
+    .wrap{max-width:1160px;margin:0 auto;padding:18px 24px 24px 320px}
     .hero{border:1px solid var(--line);border-radius:22px;padding:24px;background:linear-gradient(135deg,#edf4ff,#e6f0ff 36%,#e9fbff);box-shadow:0 12px 30px #7692be3d;margin-bottom:16px}
     .hero h1{margin:0 0 8px;font-size:2rem;line-height:1.2} .sub{color:#355178}
     .tech-widget{margin-top:14px;display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:10px}
@@ -570,21 +570,16 @@
         const card = document.createElement("div");
         card.className = "interactive-card";
         card.innerHTML = `
-          <h3>Multimodal Speech Demo</h3>
+          <h3>ASR Visualization Demo</h3>
           <div class="wave-wrap" id="waveform"></div>
           <div class="sound-wave" aria-hidden="true">
             <span></span><span></span><span></span><span></span><span></span><span></span>
             <span></span><span></span><span></span><span></span><span></span><span></span>
           </div>
-          <audio controls preload="metadata" style="width:100%;margin-top:8px">
-            <source src="https://upload.wikimedia.org/wikipedia/commons/8/8e/En-us-hello.ogg" type="audio/ogg" />
-            Your browser does not support the audio element.
-          </audio>
-          <button type="button" id="tts-demo-btn" style="margin-top:8px;border:1px solid var(--line);background:var(--card);color:var(--text);border-radius:10px;padding:6px 10px;cursor:pointer">Play English TTS Demo</button>
-          <p style="font-size:.9rem;opacity:.85">Sample spoken-English clip. If your browser cannot decode the OGG file, use the TTS demo button.</p>
+          <p style="font-size:.9rem;opacity:.85">Waveform-style signal and phoneme-level contrast for illustrating ASR feedback capability.</p>
           <div class="compare-box">
             <div class="interactive-card">
-              <h4>Student Recording (Phoneme Stream)</h4>
+              <h4>Student Phoneme Stream</h4>
               <p class="pron-line"><span class="ok">/həˈloʊ/</span> <span class="bad">/wɜːld/</span> <span class="bad">/spikɪŋ/</span></p>
             </div>
             <div class="interactive-card">
@@ -604,21 +599,7 @@
             barGap: 2,
             barRadius: 2
           });
-          ws.load("https://upload.wikimedia.org/wikipedia/commons/8/8e/En-us-hello.ogg");
-        }
-        const ttsBtn = card.querySelector("#tts-demo-btn");
-        if (ttsBtn && "speechSynthesis" in window) {
-          ttsBtn.addEventListener("click", () => {
-            const utt = new SpeechSynthesisUtterance(
-              "Hello, this is an oral English learning demo. Practice pronunciation, intonation, and fluency."
-            );
-            utt.lang = "en-US";
-            utt.rate = 0.95;
-            window.speechSynthesis.cancel();
-            window.speechSynthesis.speak(utt);
-          });
-        } else if (ttsBtn) {
-          ttsBtn.style.display = "none";
+          ws.load("https://upload.wikimedia.org/wikipedia/commons/4/47/Sine_wave_440.ogg");
         }
       }
 
