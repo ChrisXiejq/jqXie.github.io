@@ -13,42 +13,50 @@
   </script>
   <script defer src="./assets/vendor/tex-svg.js"></script>
   <style>
-    :root{--bg:#e9f2ff;--panel:#f8fbffeb;--card:#ffffffee;--text:#0f2a56;--line:#b8cdf6;--accent:#3f72ff;--accent2:#31c8ff;--glass:rgba(234,244,255,.62);}
+    :root{--bg:#f4f0e8;--panel:#fffcf7f2;--card:#fffdfaee;--text:#1f2a37;--line:#d8cdbd;--accent:#3056a6;--accent2:#b98246;--glass:rgba(255,250,243,.78);--muted:#5c6778;}
     *{box-sizing:border-box} html,body{margin:0;padding:0;scroll-behavior:smooth}
-    body{font-family:Inter,Segoe UI,Arial,sans-serif;color:var(--text);background:linear-gradient(180deg,rgba(235,243,255,.90),rgba(224,236,255,.88)),url('./assets/media/bg-ai.jpg') center/cover fixed no-repeat;}
-    .progress-bar{position:fixed;top:0;left:0;height:3px;width:0;background:linear-gradient(90deg,#3ec5ff,#6f7bff);z-index:1200;box-shadow:0 0 12px #5aa7ff;}
-    .topbar{position:fixed;top:16px;left:22px;width:240px;max-height:72vh;z-index:1000;border:1px solid var(--line);background:var(--glass);backdrop-filter: blur(14px);border-radius:16px;box-shadow:0 12px 34px #35538933;overflow:auto}
+    body{font-family:"Merriweather",Georgia,"Times New Roman",serif;color:var(--text);background:linear-gradient(180deg,rgba(246,240,231,.95),rgba(243,237,227,.92)),url('./assets/media/bg-ai.jpg') center/cover fixed no-repeat;}
+    .progress-bar{position:fixed;top:0;left:0;height:3px;width:0;background:linear-gradient(90deg,#4567a9,#bb8456);z-index:1200;box-shadow:0 0 12px #7d8fb4;}
+    .topbar{position:fixed;top:16px;left:22px;width:250px;max-height:72vh;z-index:1000;border:1px solid var(--line);background:var(--glass);backdrop-filter: blur(14px);border-radius:16px;box-shadow:0 12px 34px #6c635629;overflow:auto}
     .toc{max-width:100%;margin:0;padding:12px;display:grid;grid-template-columns:1fr;gap:8px;overflow-x:visible;white-space:normal}
-    .toc a{color:#163864;text-decoration:none;padding:6px 10px;border-radius:999px;border:1px solid #bdd0fa;background:#edf4ff;font-size:.82rem;line-height:1.2;transition:all .22s ease}
+    .toc a{color:#29415f;text-decoration:none;padding:6px 10px;border-radius:999px;border:1px solid #d8cbb7;background:#faf4ea;font-size:.82rem;line-height:1.2;transition:all .22s ease}
     .toc a:hover{background:var(--accent);color:#fff;border-color:var(--accent);transform:translateY(-1px)}
-    .toc a.active{background:linear-gradient(135deg,#4d7bff,#2fbfff);color:#fff;border-color:#3f72ff;box-shadow:0 6px 14px #4471d43d}
-    .wrap{width:min(62vw,1040px);min-width:760px;max-width:1040px;margin:0 auto;padding:18px 24px 24px}
-    .hero{border:1px solid var(--line);border-radius:22px;padding:24px;background:linear-gradient(135deg,#edf4ff,#e6f0ff 36%,#e9fbff);box-shadow:0 12px 30px #7692be3d;margin-bottom:16px}
-    .hero h1{margin:0 0 8px;font-size:2rem;line-height:1.2} .sub{color:#355178}
+    .toc a.active{background:linear-gradient(135deg,#4568a8,#8f6f4a);color:#fff;border-color:#47639a;box-shadow:0 6px 14px #72624b47}
+    .wrap{width:min(64vw,1080px);min-width:760px;max-width:1080px;margin:0 auto;padding:18px 24px 24px}
+    .hero{border:1px solid var(--line);border-radius:22px;padding:26px;background:linear-gradient(135deg,#fffcf7,#f6efe5 46%,#fef8ef);box-shadow:0 12px 30px #7d6c4d2c;margin-bottom:16px}
+    .hero-kicker{font-family:Inter,Segoe UI,Arial,sans-serif;font-size:.76rem;letter-spacing:.12em;text-transform:uppercase;color:#6b5c4b;margin-bottom:8px}
+    .hero h1{margin:0 0 10px;font-size:2.08rem;line-height:1.2;color:#1b2a40}
+    .sub{color:var(--muted);max-width:80ch}
+    .hero-actions{margin-top:14px;display:flex;gap:10px;flex-wrap:wrap}
+    .btn{font-family:Inter,Segoe UI,Arial,sans-serif;display:inline-block;padding:8px 14px;border-radius:999px;border:1px solid #bcae98;background:#fff6e8;color:#274262;text-decoration:none;font-weight:600;font-size:.86rem}
+    .btn.primary{background:linear-gradient(135deg,#3056a6,#7a6445);border-color:#3f5f9f;color:#fff}
     .tech-widget{margin-top:14px;display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:10px}
-    .chip{border:1px solid #bfd4ff;border-radius:12px;padding:10px 12px;background:#f7fbff} .chip .k{font-size:.78rem;color:#4a6b98} .chip .v{font-size:1.04rem;font-weight:700}
+    .chip{border:1px solid #d8c9b4;border-radius:12px;padding:10px 12px;background:#fff9f0} .chip .k{font-family:Inter,Segoe UI,Arial,sans-serif;font-size:.76rem;color:#7b6a56;text-transform:uppercase;letter-spacing:.04em} .chip .v{font-size:1.02rem;font-weight:700;color:#23344f}
     article{display:flex;flex-direction:column;gap:16px}
-    .section-card{border:1px solid var(--line);border-radius:18px;background:var(--panel);padding:20px 22px;box-shadow:0 10px 26px #6f87aa2a}
-    .section-card h2{margin:0 0 12px;color:#224d8b;border-bottom:1px solid #d5e3ff;padding-bottom:8px} h3{margin:14px 0 6px;color:#2d5fa6} h4{margin:10px 0 6px;color:#3d659b}
+    .section-card{border:1px solid var(--line);border-radius:18px;background:var(--panel);padding:20px 22px;box-shadow:0 10px 26px #7a6f5f1f}
+    .section-card h2{margin:0 0 12px;color:#243854;border-bottom:1px solid #e1d6c6;padding-bottom:8px;display:flex;align-items:center;gap:8px}
+    .section-card h2::before{content:"";width:8px;height:8px;border-radius:50%;background:linear-gradient(135deg,#365ca3,#ba8249)}
+    h3{margin:14px 0 6px;color:#35537d} h4{margin:10px 0 6px;color:#4d6586}
     p{line-height:1.76;margin:.45rem 0} ul,ol{margin:.35rem 0 .9rem 1.2rem} li{line-height:1.7;margin:.22rem 0}
-    blockquote{margin:12px 0;padding:14px 14px 14px 18px;border-left:5px solid var(--accent2);border-radius:10px;background:#e9fbff99;position:relative;overflow:hidden}
-    blockquote::before{content:"“";position:absolute;right:8px;top:-6px;font-size:72px;line-height:1;color:#7ec9ff2e;font-weight:700;pointer-events:none}
-    .fig{margin:10px 0 12px;border:1px solid #c0d5fd;border-radius:12px;background:#fff;overflow:hidden} .fig img{display:block;width:100%} .fig figcaption{font-size:.9rem;color:#3c5c86;padding:8px 10px}
+    blockquote{margin:12px 0;padding:14px 14px 14px 18px;border-left:5px solid var(--accent2);border-radius:10px;background:#f8f1e899;position:relative;overflow:hidden}
+    blockquote::before{content:"“";position:absolute;right:8px;top:-6px;font-size:72px;line-height:1;color:#b9a48a2f;font-weight:700;pointer-events:none}
+    .fig{margin:10px 0 12px;border:1px solid #d8cab8;border-radius:12px;background:#fffdf8;overflow:hidden} .fig img{display:block;width:100%} .fig figcaption{font-size:.9rem;color:#5c6272;padding:8px 10px}
     .fig.narrow{max-width:68%;margin-left:auto;margin-right:auto}
     .cite{color:#2d62d6;text-decoration:underline;text-underline-offset:2px}
     .ai-grid{display:block;margin-top:8px}
-    .ai-card{border:1px solid #bed2fa;border-radius:14px;background:#ffffffee;padding:12px;margin-bottom:12px} .ai-card h4{margin:0 0 8px;color:#1f4c8e}
-    details{border:1px solid #9fbef5;border-radius:10px;padding:8px 10px;margin-bottom:10px;background:linear-gradient(180deg,#eef5ff,#e8f1ff);transition:all .24s ease;box-shadow:0 3px 10px #6f8ec21f}
-    details:hover{border-color:#6f9af2;box-shadow:0 10px 22px #5f81ca36;transform:translateY(-1px)}
-    details[open]{background:linear-gradient(180deg,#e5f0ff,#dcebff);border-color:#5d8aed}
-    summary{cursor:pointer;font-weight:700;color:#1f4b8f;list-style:none;position:relative;padding:2px 0 2px 18px}
-    summary::before{content:"▸";position:absolute;left:0;top:0;color:#2f5fa5;transition:transform .2s ease}
+    .ai-card{border:1px solid #d4c7b5;border-radius:14px;background:#fffdf9ee;padding:12px;margin-bottom:12px} .ai-card h4{margin:0 0 8px;color:#334f76}
+    details{border:1px solid #d8cab7;border-radius:10px;padding:8px 10px;margin-bottom:10px;background:linear-gradient(180deg,#fff9f0,#faf2e8);transition:all .24s ease;box-shadow:0 3px 10px #84756016}
+    details:hover{border-color:#bfa786;box-shadow:0 10px 22px #8f7a5a2a;transform:translateY(-1px)}
+    details[open]{background:linear-gradient(180deg,#f8efe2,#f3e8da);border-color:#b69773}
+    summary{cursor:pointer;font-weight:700;color:#35517a;list-style:none;position:relative;padding:2px 0 2px 18px}
+    summary::before{content:"▸";position:absolute;left:0;top:0;color:#5f6f8b;transition:transform .2s ease}
     details[open] summary::before{transform:rotate(90deg)}
-    .h4-fold{border-left:4px solid #5d8aed}
-    .refs .ref-item{margin:9px 0;padding-left:1.7em;text-indent:-1.7em;line-height:1.72}
+    .h4-fold{border-left:4px solid #8a724f}
+    .refs .ref-item{margin:12px 0;line-height:1.72;border:1px solid #dfd2c3;background:#fffdf9;border-radius:12px;padding:12px 14px}
+    .refs .ref-link{display:inline-flex;margin-top:6px;padding:2px 8px;border-radius:999px;background:#f3ebdf;border:1px solid #dbc9b0;font-size:.76rem;text-decoration:none;color:#3e597d}
     .refs a{word-break:break-all}
     .interactive-grid{display:grid;grid-template-columns:1fr 1fr;gap:14px}
-    .interactive-card{border:1px solid var(--line);border-radius:14px;background:var(--card);padding:12px}
+    .interactive-card{border:1px solid var(--line);border-radius:14px;background:var(--card);padding:12px;box-shadow:0 8px 20px #7f735d1e}
     .chart-wrap{height:280px}
     .mermaid{background:var(--card);border:1px dashed var(--line);border-radius:12px;padding:8px}
     .asr-row{display:grid;grid-template-columns:.72fr 1fr 1fr;gap:10px;align-items:stretch}
@@ -68,6 +76,16 @@
     .compare-box{display:contents}
     .pron-line{font-family:ui-monospace,SFMono-Regular,Menlo,monospace;font-size:.95rem}
     .ok{color:#2aa56a;font-weight:700}.bad{color:#d84f4f;font-weight:700}
+    .timeline{margin:14px 0 0;display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:10px}
+    .t-item{border:1px solid #d9ccb8;border-radius:12px;background:#fff9ef;padding:10px}
+    .t-year{font-family:Inter,Segoe UI,Arial,sans-serif;font-size:.8rem;color:#7a6650;margin-bottom:6px}
+    .t-label{font-size:.88rem;line-height:1.45;color:#30435f}
+    .takeaway{margin:10px 0 14px;border:1px solid #d9cab7;border-radius:10px;background:#fff7ea;padding:10px 12px;display:flex;gap:10px;align-items:flex-start}
+    .takeaway-badge{font-family:Inter,Segoe UI,Arial,sans-serif;font-size:.72rem;letter-spacing:.05em;text-transform:uppercase;color:#6f5a42;border:1px solid #cfb89b;background:#f8e9d4;border-radius:999px;padding:4px 8px;white-space:nowrap}
+    .takeaway p{margin:0;font-size:.95rem;color:#334560}
+    .chapter-ring{position:fixed;right:18px;bottom:18px;width:72px;height:72px;border-radius:50%;background:conic-gradient(#4768a6 0deg,#4768a6 0deg,#e7dccb 0deg,#e7dccb 360deg);display:grid;place-items:center;z-index:1100;box-shadow:0 10px 25px #5e534227;border:1px solid #d8c8b2}
+    .chapter-ring::after{content:"";width:52px;height:52px;border-radius:50%;background:#fff9ef;border:1px solid #e0d3c3;position:absolute}
+    .chapter-ring span{position:relative;font-family:Inter,Segoe UI,Arial,sans-serif;font-size:.78rem;color:#2f4769;font-weight:700}
     .math-fade .mjx-container{animation:mathFade .8s ease both}
     @keyframes mathFade{from{opacity:0;transform:translateY(4px)}to{opacity:1;transform:none}}
     @keyframes wavePulse{0%,100%{height:12px;opacity:.55}50%{height:52px;opacity:1}}
@@ -76,20 +94,26 @@
       .toc{justify-content:center}
       .wrap{padding:18px 20px 24px}
     }
-    @media (max-width:980px){.hero h1{font-size:1.5rem} .tech-widget{grid-template-columns:1fr} .interactive-grid,.asr-row{grid-template-columns:1fr}}
+    @media (max-width:980px){.hero h1{font-size:1.5rem} .tech-widget,.timeline{grid-template-columns:1fr} .interactive-grid,.asr-row{grid-template-columns:1fr} .chapter-ring{display:none}}
   </style>
 </head>
 <body>
   <div class="progress-bar" id="reading-progress"></div>
+  <div class="chapter-ring" id="chapter-ring"><span id="chapter-ring-text">0%</span></div>
   <header class="topbar"><nav class="toc"><a href='#abstract'>Abstract</a><a href='#introduction'>Introduction: What Counts as &quot;Meaningful Improvement&quot; in Oral English Education?</a><a href='#application-domain-current-challenges-and-the-case-for-ai-ml-adoption'>Application Domain, Current Challenges, and the Case for AI/ML Adoption</a><a href='#how-different-ai-ml-technologies-address-domain-challenges'>How Different AI/ML Technologies Address Domain Challenges</a><a href='#wider-ethical-implications-of-ai-ml-in-language-education'>Wider Ethical Implications of AI/ML in Language Education</a><a href='#conclusion'>Conclusion: A Conditional Adoption Framework</a><a href='#references'>References</a></nav></header>
   <main class="wrap">
     <section class="hero">
+      <div class="hero-kicker">Research Blog · ML in Education</div>
       <h1>A Machine-Learning-Centered Evaluation of Conversational AI for Oral English Learning</h1>
-      <div class="sub">AI for oral education</div>
+      <div class="sub">When conversational AI improves oral English outcomes, and when those gains become educationally meaningful under fairness, privacy, and governance constraints.</div>
       <div class="tech-widget">
         <div class="chip"><div class="k">Pipeline</div><div class="v">ASR → Scoring → LLM → Agent</div></div>
         <div class="chip"><div class="k">Core Goal</div><div class="v">Low-latency formative feedback</div></div>
         <div class="chip"><div class="k">Ethical Axes</div><div class="v">Fairness · Privacy · Governance</div></div>
+      </div>
+      <div class="hero-actions">
+        <a class="btn primary" href="#abstract">Read Abstract</a>
+        <a class="btn" href="#references">View References</a>
       </div>
     </section>
     <article><section class='section-card' id='abstract'><h2>Abstract</h2>
@@ -307,7 +331,7 @@
           ["ref-selbst2019", "Selbst, A. D.; Boyd, D.; Friedler, S. A.; Venkatasubramanian, S.; and Vertesi, J. 2019. Fairness and abstraction in sociotechnical systems. FAT* 2019, 59-68. doi:10.1145/3287560.3287598.", "https://doi.org/10.1145/3287560.3287598"]
         ];
         refSection.innerHTML = "<h2>References</h2>" + refs.map(r =>
-          `<div class='ref-item' id='${r[0]}'>${r[1]} <a href='${r[2]}' target='_blank' rel='noopener noreferrer'>[link]</a></div>`
+          `<div class='ref-item' id='${r[0]}'><div>${r[1]}</div><a class='ref-link' href='${r[2]}' target='_blank' rel='noopener noreferrer'>Open source</a></div>`
         ).join("");
       }
 
@@ -431,6 +455,21 @@
         if (navAlias[t]) a.textContent = navAlias[t];
       });
 
+      // 4.2) Add journal-style timeline in introduction section.
+      const intro = article.querySelector("#introduction");
+      if (intro && !intro.querySelector(".timeline")) {
+        const timeline = document.createElement("div");
+        timeline.className = "timeline";
+        timeline.innerHTML = `
+          <div class="t-item"><div class="t-year">2023</div><div class="t-label">Text-only tutoring prototypes dominate public demos.</div></div>
+          <div class="t-item"><div class="t-year">2024</div><div class="t-label">GPT-4o marks near-real-time multimodal conversational interaction.</div></div>
+          <div class="t-item"><div class="t-year">2025</div><div class="t-label">EU GPAI Code of Practice published as governance reference.</div></div>
+          <div class="t-item"><div class="t-year">2026</div><div class="t-label">Deployment focus shifts from novelty to accountable education value.</div></div>
+        `;
+        const introQuote = intro.querySelector("blockquote");
+        if (introQuote) introQuote.after(timeline);
+      }
+
       // 5) Lock all figure positions to report structure.
       const findHeading = (root, text) =>
         Array.from(root.querySelectorAll("h3, h4")).find(h => h.textContent.trim() === text);
@@ -521,6 +560,25 @@
         });
       });
 
+      // 6.2) Insert concise key takeaways per major section.
+      const takeawayMap = {
+        introduction: "AI adds value only when pedagogical goals and ethical safeguards are jointly satisfied.",
+        "application-domain-current-challenges-and-the-case-for-ai-ml-adoption": "The core bottlenecks are structural: teacher capacity, latency, personalization, and learner psychology.",
+        "how-different-ai-ml-technologies-address-domain-challenges": "Educational effectiveness comes from the pipeline design, not any single model component.",
+        "wider-ethical-implications-of-ai-ml-in-language-education": "Fairness, privacy, reliability, and governance must be designed as system constraints, not post-hoc checks.",
+        conclusion: "Treat conversational AI as accountable educational infrastructure rather than a stand-alone tutor."
+      };
+      Object.entries(takeawayMap).forEach(([sid, text]) => {
+        const sec = article.querySelector(`#${sid}`);
+        if (!sec || sec.querySelector(".takeaway")) return;
+        const anchor = sec.querySelector(":scope > h2");
+        if (!anchor) return;
+        const box = document.createElement("div");
+        box.className = "takeaway";
+        box.innerHTML = `<span class="takeaway-badge">Key Takeaway</span><p>${text}</p>`;
+        anchor.after(box);
+      });
+
       // Sync top nav labels with section numbering.
       navLinks.forEach(a => {
         const id = (a.getAttribute("href") || "").replace(/^#/, "");
@@ -534,11 +592,16 @@
 
       // 7) Reading progress bar.
       const progress = document.getElementById("reading-progress");
+      const chapterRing = document.getElementById("chapter-ring");
+      const chapterRingText = document.getElementById("chapter-ring-text");
       const updateProgress = () => {
         const scrollTop = window.scrollY || document.documentElement.scrollTop;
         const scrollHeight = document.documentElement.scrollHeight - window.innerHeight;
         const pct = scrollHeight > 0 ? (scrollTop / scrollHeight) * 100 : 0;
         progress.style.width = `${Math.min(100, Math.max(0, pct))}%`;
+        const safe = Math.min(100, Math.max(0, pct));
+        if (chapterRing) chapterRing.style.background = `conic-gradient(#4768a6 ${safe * 3.6}deg,#e7dccb ${safe * 3.6}deg)`;
+        if (chapterRingText) chapterRingText.textContent = `${Math.round(safe)}%`;
       };
       window.addEventListener("scroll", updateProgress, { passive: true });
       updateProgress();
