@@ -307,7 +307,7 @@
           ["ref-selbst2019", "Selbst, A. D.; Boyd, D.; Friedler, S. A.; Venkatasubramanian, S.; and Vertesi, J. 2019. Fairness and abstraction in sociotechnical systems. FAT* 2019, 59-68. doi:10.1145/3287560.3287598.", "https://doi.org/10.1145/3287560.3287598"]
         ];
         refSection.innerHTML = "<h2>References</h2>" + refs.map(r =>
-          `<div class='ref-item' id='${r[0]}'>${r[1]}</div>`
+          `<div class='ref-item' id='${r[0]}'>${r[1]} <a href='${r[2]}' target='_blank' rel='noopener noreferrer'>[link]</a></div>`
         ).join("");
       }
 
