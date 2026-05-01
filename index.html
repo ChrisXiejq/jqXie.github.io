@@ -86,6 +86,19 @@
     .chapter-ring{position:fixed;right:18px;bottom:18px;width:72px;height:72px;border-radius:50%;background:conic-gradient(#4768a6 0deg,#4768a6 0deg,#e7dccb 0deg,#e7dccb 360deg);display:grid;place-items:center;z-index:1100;box-shadow:0 10px 25px #5e534227;border:1px solid #d8c8b2}
     .chapter-ring::after{content:"";width:52px;height:52px;border-radius:50%;background:#fff9ef;border:1px solid #e0d3c3;position:absolute}
     .chapter-ring span{position:relative;font-family:Inter,Segoe UI,Arial,sans-serif;font-size:.78rem;color:#2f4769;font-weight:700}
+    .read-meta{position:fixed;right:18px;top:14px;z-index:1100;border:1px solid #d8c8b2;background:#fff9efde;backdrop-filter:blur(8px);border-radius:12px;padding:8px 10px;box-shadow:0 8px 20px #5e534227;font-family:Inter,Segoe UI,Arial,sans-serif;max-width:280px}
+    .read-meta .time{font-size:.76rem;color:#6d604d;text-transform:uppercase;letter-spacing:.04em}
+    .read-meta .section{font-size:.84rem;color:#2f4769;margin-top:2px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+    .section-anchor{margin-left:auto;font-family:Inter,Segoe UI,Arial,sans-serif;font-size:.73rem;border:1px solid #d1c2ac;background:#f7eddf;color:#3d597d;border-radius:999px;padding:2px 8px;cursor:pointer}
+    .section-anchor:hover{background:#e9dcc7}
+    .term{position:relative;border-bottom:1px dashed #9d8465;cursor:help}
+    .term::after{content:attr(data-tip);position:absolute;left:0;bottom:125%;min-width:220px;max-width:320px;opacity:0;pointer-events:none;transform:translateY(6px);transition:.18s ease;background:#1f2a37;color:#fff;font-family:Inter,Segoe UI,Arial,sans-serif;font-size:.78rem;line-height:1.4;border-radius:8px;padding:8px 10px;box-shadow:0 8px 18px #11182755;z-index:30}
+    .term:hover::after{opacity:1;transform:translateY(0)}
+    .ref-controls{display:flex;gap:8px;flex-wrap:wrap;margin:8px 0 14px}
+    .ref-filter{font-family:Inter,Segoe UI,Arial,sans-serif;font-size:.76rem;padding:4px 9px;border-radius:999px;border:1px solid #d5c6b1;background:#faf3e7;color:#3e597d;cursor:pointer}
+    .ref-filter.active{background:linear-gradient(135deg,#4669a9,#9b754f);color:#fff;border-color:#5572ab}
+    .copy-toast{position:fixed;left:50%;bottom:24px;transform:translateX(-50%);background:#1f2a37;color:#fff;border-radius:999px;padding:8px 12px;font-family:Inter,Segoe UI,Arial,sans-serif;font-size:.8rem;opacity:0;pointer-events:none;transition:.2s ease;z-index:1300}
+    .copy-toast.show{opacity:1}
     .math-fade .mjx-container{animation:mathFade .8s ease both}
     @keyframes mathFade{from{opacity:0;transform:translateY(4px)}to{opacity:1;transform:none}}
     @keyframes wavePulse{0%,100%{height:12px;opacity:.55}50%{height:52px;opacity:1}}
@@ -94,12 +107,20 @@
       .toc{justify-content:center}
       .wrap{padding:18px 20px 24px}
     }
-    @media (max-width:980px){.hero h1{font-size:1.5rem} .tech-widget,.timeline{grid-template-columns:1fr} .interactive-grid,.asr-row{grid-template-columns:1fr} .chapter-ring{display:none}}
+    @media (max-width:980px){.hero h1{font-size:1.5rem} .tech-widget,.timeline{grid-template-columns:1fr} .interactive-grid,.asr-row{grid-template-columns:1fr} .chapter-ring,.read-meta{display:none}}
+    @media print{
+      .topbar,.progress-bar,.chapter-ring,.read-meta,.hero-actions,.section-anchor,.copy-toast{display:none !important}
+      body{background:#fff !important}
+      .wrap{width:100%;min-width:0;max-width:none;padding:0}
+      .section-card,.hero{box-shadow:none !important;border:1px solid #ddd}
+    }
   </style>
 </head>
 <body>
   <div class="progress-bar" id="reading-progress"></div>
+  <div class="read-meta" id="read-meta"><div class="time" id="read-time"></div><div class="section" id="current-section">Loading...</div></div>
   <div class="chapter-ring" id="chapter-ring"><span id="chapter-ring-text">0%</span></div>
+  <div class="copy-toast" id="copy-toast">Section link copied</div>
   <header class="topbar"><nav class="toc"><a href='#abstract'>Abstract</a><a href='#introduction'>Introduction: What Counts as &quot;Meaningful Improvement&quot; in Oral English Education?</a><a href='#application-domain-current-challenges-and-the-case-for-ai-ml-adoption'>Application Domain, Current Challenges, and the Case for AI/ML Adoption</a><a href='#how-different-ai-ml-technologies-address-domain-challenges'>How Different AI/ML Technologies Address Domain Challenges</a><a href='#wider-ethical-implications-of-ai-ml-in-language-education'>Wider Ethical Implications of AI/ML in Language Education</a><a href='#conclusion'>Conclusion: A Conditional Adoption Framework</a><a href='#references'>References</a></nav></header>
   <main class="wrap">
     <section class="hero">
@@ -330,9 +351,33 @@
           ["ref-nissenbaum2010", "Nissenbaum, H. 2010. Privacy in Context: Technology, Policy, and the Integrity of Social Life. Stanford University Press. Available at: https://www.sup.org/books/title/?id=8862.", "https://www.sup.org/books/title/?id=8862"],
           ["ref-selbst2019", "Selbst, A. D.; Boyd, D.; Friedler, S. A.; Venkatasubramanian, S.; and Vertesi, J. 2019. Fairness and abstraction in sociotechnical systems. FAT* 2019, 59-68. doi:10.1145/3287560.3287598.", "https://doi.org/10.1145/3287560.3287598"]
         ];
-        refSection.innerHTML = "<h2>References</h2>" + refs.map(r =>
+        refSection.innerHTML = "<h2>References</h2>" + "<div class='ref-controls' id='ref-controls'></div>" + refs.map(r =>
           `<div class='ref-item' id='${r[0]}'><div>${r[1]}</div><a class='ref-link' href='${r[2]}' target='_blank' rel='noopener noreferrer'>Open source</a></div>`
         ).join("");
+
+        const inferType = (text) => {
+          if (/Regulation|Code of Practice|UNESCO|World Bank|European Commission|Union/i.test(text)) return "Policy";
+          if (/Proceedings|Conference|Neural Information Processing Systems|FAT\*/i.test(text)) return "Conference";
+          if (/Surveys|PNAS|ACM|journal|doi:/i.test(text)) return "Journal";
+          return "Web";
+        };
+        const refItems = Array.from(refSection.querySelectorAll(".ref-item"));
+        refItems.forEach((item) => { item.dataset.type = inferType(item.textContent || ""); });
+        const filters = ["All", "Policy", "Journal", "Conference", "Web"];
+        const controls = refSection.querySelector("#ref-controls");
+        if (controls) {
+          controls.innerHTML = filters.map((f, i) => `<button class="ref-filter${i===0?" active":""}" data-filter="${f}">${f}</button>`).join("");
+          controls.addEventListener("click", (e) => {
+            const btn = e.target.closest(".ref-filter");
+            if (!btn) return;
+            controls.querySelectorAll(".ref-filter").forEach(b => b.classList.remove("active"));
+            btn.classList.add("active");
+            const f = btn.dataset.filter;
+            refItems.forEach((item) => {
+              item.style.display = (f === "All" || item.dataset.type === f) ? "" : "none";
+            });
+          });
+        }
       }
 
       // 2.5) Clean raw BibTeX keys in body text into readable citations.
@@ -560,6 +605,28 @@
         });
       });
 
+      // 6.3) Add copyable section anchors.
+      const copyToast = document.getElementById("copy-toast");
+      const showToast = () => {
+        if (!copyToast) return;
+        copyToast.classList.add("show");
+        setTimeout(() => copyToast.classList.remove("show"), 1200);
+      };
+      sectionCards.forEach((card) => {
+        const h2 = card.querySelector(":scope > h2");
+        if (!h2 || !card.id) return;
+        const btn = document.createElement("button");
+        btn.className = "section-anchor";
+        btn.type = "button";
+        btn.textContent = "Copy link";
+        btn.addEventListener("click", async () => {
+          const url = `${window.location.origin}${window.location.pathname}#${card.id}`;
+          try { await navigator.clipboard.writeText(url); showToast(); }
+          catch (_) { window.location.hash = card.id; showToast(); }
+        });
+        h2.appendChild(btn);
+      });
+
       // 6.2) Insert concise key takeaways per major section.
       const takeawayMap = {
         introduction: "AI adds value only when pedagogical goals and ethical safeguards are jointly satisfied.",
@@ -594,6 +661,11 @@
       const progress = document.getElementById("reading-progress");
       const chapterRing = document.getElementById("chapter-ring");
       const chapterRingText = document.getElementById("chapter-ring-text");
+      const readTime = document.getElementById("read-time");
+      const currentSection = document.getElementById("current-section");
+      const wordCount = (article.textContent || "").trim().split(/\s+/).filter(Boolean).length;
+      const mins = Math.max(1, Math.round(wordCount / 220));
+      if (readTime) readTime.textContent = `~${mins} min read`;
       const updateProgress = () => {
         const scrollTop = window.scrollY || document.documentElement.scrollTop;
         const scrollHeight = document.documentElement.scrollHeight - window.innerHeight;
@@ -602,6 +674,10 @@
         const safe = Math.min(100, Math.max(0, pct));
         if (chapterRing) chapterRing.style.background = `conic-gradient(#4768a6 ${safe * 3.6}deg,#e7dccb ${safe * 3.6}deg)`;
         if (chapterRingText) chapterRingText.textContent = `${Math.round(safe)}%`;
+        if (currentSection) {
+          const active = document.querySelector(".toc a.active");
+          currentSection.textContent = active ? active.textContent.trim() : "Overview";
+        }
       };
       window.addEventListener("scroll", updateProgress, { passive: true });
       updateProgress();
@@ -670,6 +746,24 @@
       article.querySelectorAll("p,li,blockquote").forEach(el => {
         if (/[=^_]|\\(|\\)|\\[|\\]|\\frac/.test(el.textContent)) el.classList.add("math-fade");
       });
+
+      // 13) Lightweight glossary tooltips for key terms.
+      const termTips = {
+        WER: "Word Error Rate: the proportion of words transcribed incorrectly by ASR.",
+        RLHF: "Reinforcement Learning from Human Feedback, used to shape model response behavior.",
+        calibration: "How well model confidence reflects true correctness probability.",
+        ASR: "Automatic Speech Recognition, converting speech signals into text.",
+        LLM: "Large Language Model, generating context-aware responses and feedback."
+      };
+      const applyTermTip = (term, tip) => {
+        const r = new RegExp(`\\b${term}\\b`, "g");
+        article.querySelectorAll("p,li,summary").forEach((el) => {
+          if (el.closest("#references")) return;
+          if ((el.innerHTML.match(r) || []).length > 2) return;
+          el.innerHTML = el.innerHTML.replace(r, `<span class="term" data-tip="${tip}">${term}</span>`);
+        });
+      };
+      Object.entries(termTips).forEach(([term, tip]) => applyTermTip(term, tip));
     })();
   </script>
 </body>
