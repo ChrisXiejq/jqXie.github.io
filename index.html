@@ -309,8 +309,7 @@
           ["ref-worldbank2024", "World Bank. 2022. 70% of 10-year-olds now in learning poverty, unable to read and understand a simple text. Available at: https://www.worldbank.org/en/news/press-release/2022/06/23/70-of-10-year-olds-now-in-learning-poverty-unable-to-read-and-understand-a-simple-text.", "https://www.worldbank.org/en/news/press-release/2022/06/23/70-of-10-year-olds-now-in-learning-poverty-unable-to-read-and-understand-a-simple-text"],
           ["ref-eu2016", "European Union. 2016. Regulation (EU) 2016/679 (General Data Protection Regulation). Available at: https://eur-lex.europa.eu/eli/reg/2016/679/oj.", "https://eur-lex.europa.eu/eli/reg/2016/679/oj"],
           ["ref-nissenbaum2010", "Nissenbaum, H. 2010. Privacy in Context: Technology, Policy, and the Integrity of Social Life. Stanford University Press. Available at: https://www.sup.org/books/title/?id=8862.", "https://www.sup.org/books/title/?id=8862"],
-          ["ref-selbst2019", "Selbst, A. D.; Boyd, D.; Friedler, S. A.; Venkatasubramanian, S.; and Vertesi, J. 2019. Fairness and abstraction in sociotechnical systems. FAT* 2019, 59-68. doi:10.1145/3287560.3287598.", "https://doi.org/10.1145/3287560.3287598"],
-          ["ref-itu2023", "International Telecommunication Union. 2023. Facts and Figures 2023. Available at: https://www.itu.int/itu-d/reports/statistics/facts-figures-2023/.", "https://www.itu.int/itu-d/reports/statistics/facts-figures-2023/"]
+          ["ref-selbst2019", "Selbst, A. D.; Boyd, D.; Friedler, S. A.; Venkatasubramanian, S.; and Vertesi, J. 2019. Fairness and abstraction in sociotechnical systems. FAT* 2019, 59-68. doi:10.1145/3287560.3287598.", "https://doi.org/10.1145/3287560.3287598"]
         ];
         refSection.innerHTML = "<h2>References</h2>" + refs.map(r =>
           `<div class='ref-item' id='${r[0]}'>${r[1]} <a href='${r[2]}' target='_blank' rel='noopener noreferrer'>[link]</a></div>`
@@ -330,8 +329,7 @@
         selbst2019abstraction: { label: "Selbst et al., 2019", refId: "ref-selbst2019" },
         unesco2023: { label: "Miao and Holmes, 2023", refId: "ref-unesco2023" },
         unesco2023teachers: { label: "UNESCO, 2024", refId: "ref-unesco-teachers" },
-        worldbank2024learningpoverty: { label: "World Bank, 2022", refId: "ref-worldbank2024" },
-        itu2023facts: { label: "ITU, 2023", refId: "ref-itu2023" }
+        worldbank2024learningpoverty: { label: "World Bank, 2022", refId: "ref-worldbank2024" }
       };
 
       const keyPattern = new RegExp(
