@@ -4,23 +4,18 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>AI in Oral English Learning — Blog</title>
-  <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.3/dist/chart.umd.min.js"></script>
-  <script type="module">
-    import mermaid from "https://cdn.jsdelivr.net/npm/mermaid@11/dist/mermaid.esm.min.mjs";
-    window.mermaid = mermaid;
-  </script>
-  <script src="https://unpkg.com/wavesurfer.js@7/dist/wavesurfer.min.js"></script>
+  <script src="./assets/vendor/chart.umd.min.js"></script>
   <script>
     window.MathJax = {
       tex: { inlineMath: [["$", "$"], ["\\(", "\\)"]] },
       svg: { fontCache: "global" }
     };
   </script>
-  <script defer src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-svg.js"></script>
+  <script defer src="./assets/vendor/tex-svg.js"></script>
   <style>
     :root{--bg:#e9f2ff;--panel:#f8fbffeb;--card:#ffffffee;--text:#0f2a56;--line:#b8cdf6;--accent:#3f72ff;--accent2:#31c8ff;--glass:rgba(234,244,255,.62);}
     *{box-sizing:border-box} html,body{margin:0;padding:0;scroll-behavior:smooth}
-    body{font-family:Inter,Segoe UI,Arial,sans-serif;color:var(--text);background:linear-gradient(180deg,rgba(235,243,255,.90),rgba(224,236,255,.88)),url('https://images.unsplash.com/photo-1620712943543-bcc4688e7485?auto=format&fit=crop&w=2200&q=80') center/cover fixed no-repeat;}
+    body{font-family:Inter,Segoe UI,Arial,sans-serif;color:var(--text);background:linear-gradient(180deg,rgba(235,243,255,.90),rgba(224,236,255,.88)),url('./assets/media/bg-ai.jpg') center/cover fixed no-repeat;}
     .progress-bar{position:fixed;top:0;left:0;height:3px;width:0;background:linear-gradient(90deg,#3ec5ff,#6f7bff);z-index:1200;box-shadow:0 0 12px #5aa7ff;}
     .topbar{position:fixed;top:16px;left:22px;width:240px;max-height:72vh;z-index:1000;border:1px solid var(--line);background:var(--glass);backdrop-filter: blur(14px);border-radius:16px;box-shadow:0 12px 34px #35538933;overflow:auto}
     .toc{max-width:100%;margin:0;padding:12px;display:grid;grid-template-columns:1fr;gap:8px;overflow-x:visible;white-space:normal}
@@ -312,7 +307,7 @@
           ["ref-selbst2019", "Selbst, A. D.; Boyd, D.; Friedler, S. A.; Venkatasubramanian, S.; and Vertesi, J. 2019. Fairness and abstraction in sociotechnical systems. FAT* 2019, 59-68. doi:10.1145/3287560.3287598.", "https://doi.org/10.1145/3287560.3287598"]
         ];
         refSection.innerHTML = "<h2>References</h2>" + refs.map(r =>
-          `<div class='ref-item' id='${r[0]}'>${r[1]} <a href='${r[2]}' target='_blank' rel='noopener noreferrer'>[link]</a></div>`
+          `<div class='ref-item' id='${r[0]}'>${r[1]}</div>`
         ).join("");
       }
 
